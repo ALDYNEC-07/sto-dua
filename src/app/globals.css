@@ -29,8 +29,10 @@ body {
 }
 
 .hero {
+  /* Что изменили: Добавили svh как приоритетную высоту hero | Зачем: на телефонах высота секции учитывает браузерные панели стабильнее, без скрытия нижних элементов */
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
   overflow: hidden;
 }
@@ -47,15 +49,16 @@ body {
 }
 
 .hero__content {
-  /* Что изменили: Перенастроили вертикальные отступы hero | Зачем: оставить стабильное место для нижнего блока (бисмилля + стрелка вниз) */
+  /* Что изменили: Перенастроили нижний отступ с учетом safe-area | Зачем: текст и стрелка не прячутся за нижнюю панель мобильного браузера */
   position: relative;
   z-index: 2;
   min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   align-content: center;
   place-items: center;
   gap: clamp(8px, 1.8vh, 14px);
-  padding: 88px 24px clamp(185px, 28vh, 320px);
+  padding: 88px 24px calc(env(safe-area-inset-bottom, 0px) + clamp(190px, 29vh, 330px));
   text-align: center;
 }
 
@@ -83,13 +86,14 @@ body {
 }
 
 .hero__bottom {
+  /* Что изменили: Подняли нижний hero-блок с учетом safe-area | Зачем: бисмилля и стрелка остаются видимыми над нижней вкладкой браузера */
   position: absolute;
   left: 0;
   right: 0;
-  bottom: clamp(18px, 4vh, 42px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(26px, 5.5vh, 58px));
   z-index: 2;
   display: grid;
-  gap: clamp(12px, 2.4vh, 20px);
+  gap: clamp(10px, 2vh, 16px);
   justify-items: center;
   padding: 0 24px;
 }
