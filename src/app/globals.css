@@ -212,6 +212,9 @@ body {
   align-items: flex-start;
   overflow-x: auto;
   overflow-y: hidden;
+  /* Что изменили: Добавили ограничения для свайпа по оси X | Зачем: предотвратить инерционные перескоки и сохранить стабильный свайп по одному слайду */
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   transition: height 200ms ease;
   scrollbar-width: none;
@@ -226,6 +229,8 @@ body {
   flex: 0 0 100%;
   align-self: flex-start;
   scroll-snap-align: start;
+  /* Что изменили: Включили обязательную остановку на каждом snap-пункте | Зачем: даже при резком жесте не перепрыгивать через несколько дуа */
+  scroll-snap-stop: always;
   display: flex;
   justify-content: center;
   text-align: center;
