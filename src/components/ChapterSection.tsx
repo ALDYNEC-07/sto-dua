@@ -66,14 +66,16 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         {duas.map((dua) => {
           return (
             <article className="dua-slide" key={dua.id}>
-              <p className="dua-slide__index">{dua.id}</p>
-              <p className="dua-slide__arabic" lang="ar" dir="rtl">
-                {dua.arabic}
-              </p>
+              <div className="dua-slide__panel">
+                <p className="dua-slide__index">{dua.id}</p>
+                <p className="dua-slide__arabic" lang="ar" dir="rtl">
+                  {dua.arabic}
+                </p>
 
-              <p className="dua-slide__transliteration">{dua.transliteration}</p>
+                <p className="dua-slide__transliteration">{dua.transliteration}</p>
 
-              <p className="dua-slide__translation">{dua.translation}</p>
+                <p className="dua-slide__translation">{dua.translation}</p>
+              </div>
             </article>
           );
         })}

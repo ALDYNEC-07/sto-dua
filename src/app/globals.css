@@ -196,7 +196,7 @@ body {
 
 .chapter__title {
   max-width: 30ch;
-  margin: 0;
+  margin: clamp(10px, 2vh, 18px) 0 clamp(12px, 2.4vh, 22px);
   text-align: center;
   font-size: clamp(1.18rem, 2.7vw, 1.86rem);
   font-weight: 700;
@@ -222,10 +222,21 @@ body {
   flex: 0 0 100%;
   scroll-snap-align: start;
   display: grid;
-  gap: clamp(9px, 1.8vh, 16px);
-  justify-items: center;
+  place-items: center;
   text-align: center;
   padding: 0 clamp(2px, 1vw, 10px);
+}
+
+.dua-slide__panel {
+  width: min(860px, 100%);
+  display: grid;
+  gap: clamp(9px, 1.8vh, 16px);
+  justify-items: center;
+  padding: clamp(14px, 2.8vh, 24px) clamp(14px, 3.5vw, 28px);
+  border-radius: 14px;
+  background: rgba(18, 18, 18, 0.34);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .dua-slide__index {
