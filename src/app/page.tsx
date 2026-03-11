@@ -1,3 +1,6 @@
+import ChapterSection from "../components/ChapterSection";
+import { chapterOne } from "../data/chapters";
+
 export default function Home() {
   return (
     <main>
@@ -20,7 +23,12 @@ export default function Home() {
           </a>
         </div>
       </section>
-      <section id="dua-start" className="dua-start" aria-label="Начало списка дуа" />
+
+      <ChapterSection
+        id={chapterOne.id}
+        title={chapterOne.title}
+        duas={chapterOne.duas}
+      />
     </main>
   );
 }

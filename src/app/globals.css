@@ -19,12 +19,13 @@ html {
 body {
   /* Что изменили: Сделали hero-картинку фоном всего сайта | Зачем: единый фон на всех секциях, а не только в hero */
   min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "SF Pro Text", "Inter", "Segoe UI", "Noto Sans", sans-serif;
   background-color: #0f0f0f;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .hero {
@@ -61,10 +62,12 @@ body {
 .hero__title {
   margin: 0;
   color: #fff;
-  font-size: clamp(2.1rem, 5.8vw, 4.4rem);
+  font-size: clamp(2rem, 5.2vw, 4rem);
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  line-height: 1.08;
+  text-wrap: balance;
   text-shadow: 0 8px 22px rgba(0, 0, 0, 0.42);
 }
 
@@ -72,9 +75,11 @@ body {
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
   max-width: 28ch;
-  font-size: clamp(0.92rem, 2.1vw, 1.22rem);
+  font-size: clamp(0.9rem, 1.9vw, 1.14rem);
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.09em;
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 .hero__bottom {
@@ -100,11 +105,17 @@ body {
 .hero__bismillah-ar {
   margin: 0;
   color: rgba(255, 255, 255, 0.97);
-  font-family: "Amiri", "Noto Naskh Arabic", "Times New Roman", serif;
+  font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Times New Roman",
+    serif;
+  font-weight: 300;
   direction: rtl;
-  font-size: clamp(1.25rem, 4.1vw, 2rem);
-  line-height: 1.55;
-  letter-spacing: 0.03em;
+  font-size: clamp(1.2rem, 3.7vw, 1.9rem);
+  line-height: 1.74;
+  letter-spacing: 0;
+  word-spacing: 0.04em;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
   text-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
@@ -112,8 +123,9 @@ body {
   margin: 0;
   color: rgba(255, 255, 255, 0.85);
   max-width: 44ch;
-  font-size: clamp(0.88rem, 2.1vw, 1.04rem);
-  line-height: 1.45;
+  font-size: clamp(0.86rem, 1.9vw, 1rem);
+  line-height: 1.55;
+  text-wrap: balance;
 }
 
 .hero__scroll-down {
@@ -170,8 +182,227 @@ body {
   transform-origin: left center;
 }
 
+.chapter {
+  min-height: 100svh;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(14px, 2.8vh, 24px);
+  padding: clamp(80px, 10vh, 106px) clamp(16px, 4vw, 44px) clamp(18px, 4vh, 36px);
+  color: #fff;
+}
+
+.chapter__title {
+  max-width: 30ch;
+  margin: clamp(10px, 2vh, 18px) 0 clamp(12px, 2.4vh, 22px);
+  text-align: center;
+  font-size: clamp(1.18rem, 2.7vw, 1.86rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.chapter__track {
+  width: min(980px, 100%);
+  display: flex;
+  align-items: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  transition: height 200ms ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chapter__track::-webkit-scrollbar {
+  display: none;
+}
+
+.dua-slide {
+  flex: 0 0 100%;
+  align-self: flex-start;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0 clamp(2px, 1vw, 10px);
+}
+
+.dua-slide__panel {
+  width: min(860px, 100%);
+  display: grid;
+  gap: clamp(9px, 1.8vh, 16px);
+  justify-items: center;
+  padding: clamp(14px, 2.8vh, 24px) clamp(14px, 3.5vw, 28px);
+  border-radius: 14px;
+  background: rgba(18, 18, 18, 0.34);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dua-slide__index {
+  margin: 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.dua-slide__arabic {
+  margin: 0;
+  max-width: 23ch;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Noto Sans Arabic", "Noto Naskh Arabic", "Amiri", "Scheherazade New",
+    "Times New Roman", serif;
+  font-weight: 200;
+  font-size: clamp(1.62rem, 4.7vw, 2.62rem);
+  line-height: 1.82;
+  letter-spacing: 0;
+  word-spacing: 0.04em;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  text-wrap: pretty;
+}
+
+.dua-slide__toggle {
+  margin: 0;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dua-slide__toggle-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dua-slide__toggle-chevron {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 12px;
+  transition: transform 180ms ease;
+}
+
+.dua-slide__toggle-chevron::before,
+.dua-slide__toggle-chevron::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  width: 12px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.dua-slide__toggle-chevron::before {
+  right: 50%;
+  transform: translateX(1px) rotate(27deg);
+  transform-origin: right center;
+}
+
+.dua-slide__toggle-chevron::after {
+  left: 50%;
+  transform: translateX(-1px) rotate(-27deg);
+  transform-origin: left center;
+}
+
+.dua-slide__toggle-chevron--open {
+  transform: rotate(180deg);
+}
+
+.dua-slide__transliteration,
+.dua-slide__translation {
+  margin: 0;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+
+.dua-slide__transliteration {
+  max-width: 48ch;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.94rem, 2vw, 1.06rem);
+  font-style: italic;
+  line-height: 1.62;
+}
+
+.dua-slide__translation {
+  max-width: 44ch;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: clamp(0.98rem, 2.15vw, 1.12rem);
+  line-height: 1.62;
+}
+
+.chapter__nav {
+  width: min(980px, 100%);
+  margin-top: clamp(4px, 1.2vh, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chapter__nav-btn {
+  width: 34px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.94);
+  cursor: pointer;
+}
+
+.chapter__nav-chevron {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 12px;
+  margin: 0 auto;
+}
+
+.chapter__nav-chevron::before,
+.chapter__nav-chevron::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  width: 10px;
+  height: 1.4px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.chapter__nav-chevron::before {
+  right: 50%;
+  transform: translateX(1px) rotate(42deg);
+  transform-origin: right center;
+}
+
+.chapter__nav-chevron::after {
+  left: 50%;
+  transform: translateX(-1px) rotate(-42deg);
+  transform-origin: left center;
+}
+
+.chapter__nav-chevron--left {
+  transform: rotate(90deg);
+}
+
+.chapter__nav-chevron--right {
+  transform: rotate(-90deg);
+}
+
 .dua-start {
-  height: 1px;
   scroll-margin-top: 88px;
 }
 
@@ -188,11 +419,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  /* Что изменили: На десктопе зафиксировали фон относительно окна | Зачем: фон выглядит стабильнее при длинной прокрутке */
-  body {
-    background-attachment: fixed;
-  }
-
   .hero__content {
     padding: 104px 32px clamp(220px, 31vh, 340px);
   }
@@ -203,11 +429,34 @@ body {
   }
 
   .hero__bismillah-ar {
-    font-size: clamp(1.45rem, 2.8vw, 2.2rem);
+    font-size: clamp(1.36rem, 2.4vw, 2.05rem);
   }
 
   .hero__bismillah-ru {
-    font-size: clamp(0.95rem, 1.45vw, 1.12rem);
+    font-size: clamp(0.92rem, 1.18vw, 1.05rem);
+  }
+
+  .chapter__title {
+    max-width: 34ch;
+    font-size: clamp(1.4rem, 1.8vw, 2rem);
+  }
+
+  .chapter {
+    gap: clamp(16px, 2.4vh, 26px);
+    padding-top: clamp(88px, 10.2vh, 120px);
+  }
+
+  .dua-slide__arabic {
+    max-width: 28ch;
+    font-size: clamp(1.9rem, 2.45vw, 2.9rem);
+  }
+
+  .dua-slide__transliteration {
+    font-size: clamp(0.98rem, 1.03vw, 1.1rem);
+  }
+
+  .dua-slide__translation {
+    font-size: clamp(1rem, 1.1vw, 1.14rem);
   }
 }
 
