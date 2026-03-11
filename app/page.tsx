@@ -5,7 +5,8 @@ export default function Home() {
       <section className="hero">
         <div className="hero__overlay" />
         <div className="hero__content">
-          <h1>STO DUA</h1>
+          <h1>100 ДУА</h1>
+          <p className="hero__subtitle">ИЗ КОРАНА И СУННЫ</p>
         </div>
       </section>
     </main>

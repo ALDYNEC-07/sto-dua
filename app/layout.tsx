@@ -19,7 +19,7 @@ export default function RootLayout({
           <div className="site-header__inner">
             {/* Текстовый логотип проекта */}
             <div className="site-logo" aria-label="Brand logo">
-              100 DUA
+               DUA
             </div>
             {/* Пока только визуальная кнопка-бургер из двух линий, без ссылок и меню */}
             <button

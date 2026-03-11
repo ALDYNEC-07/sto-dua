@@ -40,6 +40,7 @@ body {
   justify-content: space-between;
   min-height: 56px;
   padding: 0 14px;
+  border-radius: 14px;
   background: rgba(18, 18, 18, 0.34);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -99,7 +100,9 @@ body {
   z-index: 2;
   min-height: 100vh;
   display: grid;
+  align-content: center;
   place-items: center;
+  gap: 10px;
   padding: 88px 24px 24px;
   text-align: center;
 }
@@ -109,6 +112,13 @@ body {
   color: #fff;
   font-size: clamp(2rem, 5vw, 4rem);
   letter-spacing: 0.14em;
+}
+
+.hero__subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  letter-spacing: 0.1em;
 }
 
 @media (min-width: 768px) {
