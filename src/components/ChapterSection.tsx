@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Dua = {
   id: number;
@@ -21,8 +21,11 @@ const HOLD_STEP_PX = 34;
 
 export default function ChapterSection({ id, title, duas }: ChapterSectionProps) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const slideRefs = useRef<Array<HTMLElement | null>>([]);
   const holdDelayRef = useRef<number | null>(null);
   const holdIntervalRef = useRef<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [trackHeight, setTrackHeight] = useState<number | null>(null);
 
   const clearHold = () => {
     if (holdDelayRef.current !== null) {
@@ -38,6 +41,35 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
   useEffect(() => {
     return () => clearHold();
   }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const activeSlide = slideRefs.current[activeIndex];
+    if (!track || !activeSlide) {
+      return;
+    }
+
+    const updateHeight = () => {
+      setTrackHeight(activeSlide.offsetHeight);
+    };
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(activeSlide);
+
+    return () => observer.disconnect();
+  }, [activeIndex, duas.length]);
+
+  const updateActiveIndex = () => {
+    const track = trackRef.current;
+    if (!track) {
+      return;
+    }
+
+    const nextIndex = Math.round(track.scrollLeft / track.clientWidth);
+    const boundedIndex = Math.min(Math.max(nextIndex, 0), duas.length - 1);
+    setActiveIndex(boundedIndex);
+  };
 
   const scrollOneSlide = (direction: -1 | 1) => {
     const track = trackRef.current;
@@ -62,10 +94,21 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         {title}
       </h2>
 
-      <div className="chapter__track" ref={trackRef}>
-        {duas.map((dua) => {
+      <div
+        className="chapter__track"
+        ref={trackRef}
+        onScroll={updateActiveIndex}
+        style={trackHeight ? { height: `${trackHeight}px` } : undefined}
+      >
+        {duas.map((dua, index) => {
           return (
-            <article className="dua-slide" key={dua.id}>
+            <article
+              className="dua-slide"
+              key={dua.id}
+              ref={(node) => {
+                slideRefs.current[index] = node;
+              }}
+            >
               <div className="dua-slide__panel">
                 <p className="dua-slide__index">{dua.id}</p>
                 <p className="dua-slide__arabic" lang="ar" dir="rtl">
