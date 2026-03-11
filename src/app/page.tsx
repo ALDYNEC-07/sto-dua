@@ -1,3 +1,21 @@
+import ChapterSection from "../components/ChapterSection";
+
+const chapterOneDuas = [
+  {
+    id: 1,
+    arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ",
+    transliteration:
+      "«Алла́хумма, инни́ ас'алюка-ль-Джанната\nва а'узу бика мина-н-На́р(и)».",
+    translation: "«О, Аллах! Прошу у Тебя Рая\nи прибегаю к Твоей защите от Ада».",
+  },
+  {
+    id: 2,
+    arabic: "رَبِّ ابْنِ لِي عِندَكَ بَيْتًا فِي الْجَنَّةِ",
+    transliteration: "«Рабби-бни ли́ 'индака байтан фи-ль-Джаннат(и)».",
+    translation: "«О, Господь! Возведи мне дом в Раю».",
+  },
+];
+
 export default function Home() {
   return (
     <main>
@@ -20,7 +38,12 @@ export default function Home() {
           </a>
         </div>
       </section>
-      <section id="dua-start" className="dua-start" aria-label="Начало списка дуа" />
+
+      <ChapterSection
+        id="dua-start"
+        title="ИСПРАШИВАНИЕ У АЛЛАХА РАЯ И ЗАЩИТЫ ОТ АДА"
+        duas={chapterOneDuas}
+      />
     </main>
   );
 }
