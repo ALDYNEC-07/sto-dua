@@ -25,6 +25,7 @@ body {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .hero {
@@ -418,11 +419,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  /* Что изменили: На десктопе зафиксировали фон относительно окна | Зачем: фон выглядит стабильнее при длинной прокрутке */
-  body {
-    background-attachment: fixed;
-  }
-
   .hero__content {
     padding: 104px 32px clamp(220px, 31vh, 340px);
   }
