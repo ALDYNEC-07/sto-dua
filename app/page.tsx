@@ -1,17 +1,8 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main>
+      {/* Что изменили: Убрали локальную картинку из hero | Зачем: теперь фон задается глобально для всего сайта через body */}
       <section className="hero">
-        <Image
-          src="/hero-dua.jpg"
-          alt="STO DUA hero"
-          fill
-          priority
-          className="hero__image"
-          sizes="100vw"
-        />
         <div className="hero__overlay" />
         <div className="hero__content">
           <h1>STO DUA</h1>

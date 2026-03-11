@@ -13,8 +13,66 @@ body {
 }
 
 body {
+  /* Что изменили: Сделали hero-картинку фоном всего сайта | Зачем: единый фон на всех секциях, а не только в hero */
   min-height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f0f0f;
+  background-image: url("/hero-dua.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+
+.site-header {
+  /* Что изменили: Закрепили шапку сверху | Зачем: меню и логотип всегда остаются видимыми */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 12px 12px 0;
+}
+
+.site-header__inner {
+  /* Что изменили: Добавили полупрозрачный blur-фон | Зачем: элементы шапки читаются на фото-фоне */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0 14px;
+  background: rgba(18, 18, 18, 0.34);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.site-logo {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.burger-menu {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.burger-menu span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-left: auto;
+  border-radius: 2px;
+  background: #fff;
 }
 
 .hero {
@@ -22,10 +80,6 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
-}
-
-.hero__image {
-  object-fit: cover;
 }
 
 .hero__overlay {
@@ -40,12 +94,13 @@ body {
 }
 
 .hero__content {
+  /* Что изменили: Добавили верхний отступ контенту hero | Зачем: заголовок не перекрывается фиксированной шапкой */
   position: relative;
   z-index: 2;
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 88px 24px 24px;
   text-align: center;
 }
 
@@ -54,4 +109,28 @@ body {
   color: #fff;
   font-size: clamp(2rem, 5vw, 4rem);
   letter-spacing: 0.14em;
+}
+
+@media (min-width: 768px) {
+  /* Что изменили: На десктопе зафиксировали фон относительно окна | Зачем: фон выглядит стабильнее при длинной прокрутке */
+  body {
+    background-attachment: fixed;
+  }
+
+  .site-header {
+    padding: 16px 20px 0;
+  }
+
+  .site-header__inner {
+    min-height: 64px;
+    padding: 0 18px;
+  }
+
+  .site-logo {
+    font-size: 1.1rem;
+  }
+
+  .hero__content {
+    padding-top: 104px;
+  }
 }
