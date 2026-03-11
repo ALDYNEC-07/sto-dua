@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Что изменили: Сделали hero-картинку фоном всего сайта | Зачем: единый фон на всех секциях, а не только в hero */
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f0f0f;
+  background-image: url("/hero-dua.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+.hero__content {
+  /* Что изменили: Перенастроили вертикальные отступы hero | Зачем: оставить стабильное место для нижнего блока (бисмилля + стрелка вниз) */
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  place-items: center;
+  gap: clamp(8px, 1.8vh, 14px);
+  padding: 88px 24px clamp(185px, 28vh, 320px);
+  text-align: center;
+}
+
+.hero__title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.1rem, 5.8vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.42);
+}
+
+.hero__subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 28ch;
+  font-size: clamp(0.92rem, 2.1vw, 1.22rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.hero__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(18px, 4vh, 42px);
+  z-index: 2;
+  display: grid;
+  gap: clamp(12px, 2.4vh, 20px);
+  justify-items: center;
+  padding: 0 24px;
+}
+
+.hero__bismillah {
+  width: min(860px, 100%);
+  display: grid;
+  gap: clamp(8px, 1.8vh, 12px);
+  justify-items: center;
+  text-align: center;
+}
+
+.hero__bismillah-ar {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.97);
+  font-family: "Amiri", "Noto Naskh Arabic", "Times New Roman", serif;
+  direction: rtl;
+  font-size: clamp(1.25rem, 4.1vw, 2rem);
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.hero__bismillah-ru {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 44ch;
+  font-size: clamp(0.88rem, 2.1vw, 1.04rem);
+  line-height: 1.45;
+}
+
+.hero__scroll-down {
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 56px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.96);
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 180ms ease, opacity 180ms ease;
+  animation: heroArrowFloat 1.8s ease-in-out infinite;
+}
+
+.hero__scroll-down:hover {
+  transform: translateY(2px);
+  opacity: 0.78;
+}
+
+.hero__scroll-down:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.hero__scroll-chevron {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 26px;
+}
+
+.hero__scroll-chevron::before,
+.hero__scroll-chevron::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  width: 32px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.hero__scroll-chevron::before {
+  right: 50%;
+  transform: translateX(1px) rotate(29deg);
+  transform-origin: right center;
+}
+
+.hero__scroll-chevron::after {
+  left: 50%;
+  transform: translateX(-1px) rotate(-29deg);
+  transform-origin: left center;
+}
+
+.dua-start {
+  height: 1px;
+  scroll-margin-top: 88px;
+}
+
+@keyframes heroArrowFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  /* Что изменили: На десктопе зафиксировали фон относительно окна | Зачем: фон выглядит стабильнее при длинной прокрутке */
+  body {
+    background-attachment: fixed;
+  }
+
+  .hero__content {
+    padding: 104px 32px clamp(220px, 31vh, 340px);
+  }
+
+  .hero__bottom {
+    bottom: clamp(26px, 5.2vh, 58px);
+    gap: clamp(14px, 2.7vh, 26px);
+  }
+
+  .hero__bismillah-ar {
+    font-size: clamp(1.45rem, 2.8vw, 2.2rem);
+  }
+
+  .hero__bismillah-ru {
+    font-size: clamp(0.95rem, 1.45vw, 1.12rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-down {
+    animation: none;
+  }
+}
