@@ -15,32 +15,11 @@ type ChapterSectionProps = {
   duas: Dua[];
 };
 
-const HOLD_DELAY_MS = 220;
-const HOLD_INTERVAL_MS = 70;
-const HOLD_STEP_PX = 34;
-
 export default function ChapterSection({ id, title, duas }: ChapterSectionProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<Array<HTMLElement | null>>([]);
-  const holdDelayRef = useRef<number | null>(null);
-  const holdIntervalRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [trackHeight, setTrackHeight] = useState<number | null>(null);
-
-  const clearHold = () => {
-    if (holdDelayRef.current !== null) {
-      window.clearTimeout(holdDelayRef.current);
-      holdDelayRef.current = null;
-    }
-    if (holdIntervalRef.current !== null) {
-      window.clearInterval(holdIntervalRef.current);
-      holdIntervalRef.current = null;
-    }
-  };
-
-  useEffect(() => {
-    return () => clearHold();
-  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -77,15 +56,6 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
       return;
     }
     track.scrollBy({ left: direction * track.clientWidth, behavior: "smooth" });
-  };
-
-  const startHoldScroll = (direction: -1 | 1) => {
-    clearHold();
-    holdDelayRef.current = window.setTimeout(() => {
-      holdIntervalRef.current = window.setInterval(() => {
-        trackRef.current?.scrollBy({ left: direction * HOLD_STEP_PX, behavior: "auto" });
-      }, HOLD_INTERVAL_MS);
-    }, HOLD_DELAY_MS);
   };
 
   return (
@@ -130,10 +100,6 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           type="button"
           aria-label="Предыдущее дуа"
           onClick={() => scrollOneSlide(-1)}
-          onPointerDown={() => startHoldScroll(-1)}
-          onPointerUp={clearHold}
-          onPointerLeave={clearHold}
-          onPointerCancel={clearHold}
         >
           <span className="chapter__nav-chevron chapter__nav-chevron--left" aria-hidden="true" />
         </button>
@@ -143,10 +109,6 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           type="button"
           aria-label="Следующее дуа"
           onClick={() => scrollOneSlide(1)}
-          onPointerDown={() => startHoldScroll(1)}
-          onPointerUp={clearHold}
-          onPointerLeave={clearHold}
-          onPointerCancel={clearHold}
         >
           <span className="chapter__nav-chevron chapter__nav-chevron--right" aria-hidden="true" />
         </button>
