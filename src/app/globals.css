@@ -216,7 +216,6 @@ body {
   touch-action: pan-y;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  transition: height 200ms ease;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -239,14 +238,33 @@ body {
 
 .dua-slide__panel {
   width: min(860px, 100%);
+  /* Что изменили: Еще немного уменьшили фиксированную высоту карточки дуа на мобильных | Зачем: сделать блок компактнее по новому запросу */
+  height: clamp(308px, 50svh, 470px);
   display: grid;
-  gap: clamp(9px, 1.8vh, 16px);
-  justify-items: center;
+  grid-template-rows: auto 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+  gap: clamp(10px, 1.9vh, 16px);
   padding: clamp(14px, 2.8vh, 24px) clamp(14px, 3.5vw, 28px);
   border-radius: 14px;
   background: rgba(18, 18, 18, 0.34);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.dua-slide__content {
+  /* Что изменили: Добавили внутренний вертикальный скролл текста | Зачем: длинные дуа читаются полностью внутри фиксированной карточки */
+  min-height: 0;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: clamp(9px, 1.8vh, 16px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 6px;
 }
 
 .dua-slide__index {
@@ -271,61 +289,6 @@ body {
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   text-rendering: optimizeLegibility;
   text-wrap: pretty;
-}
-
-.dua-slide__toggle {
-  margin: 0;
-  min-height: 28px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.92);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.dua-slide__toggle-label {
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
-}
-
-.dua-slide__toggle-chevron {
-  position: relative;
-  display: block;
-  width: 22px;
-  height: 12px;
-  transition: transform 180ms ease;
-}
-
-.dua-slide__toggle-chevron::before,
-.dua-slide__toggle-chevron::after {
-  content: "";
-  position: absolute;
-  top: 6px;
-  width: 12px;
-  height: 1.5px;
-  border-radius: 2px;
-  background: currentColor;
-}
-
-.dua-slide__toggle-chevron::before {
-  right: 50%;
-  transform: translateX(1px) rotate(27deg);
-  transform-origin: right center;
-}
-
-.dua-slide__toggle-chevron::after {
-  left: 50%;
-  transform: translateX(-1px) rotate(-27deg);
-  transform-origin: left center;
-}
-
-.dua-slide__toggle-chevron--open {
-  transform: rotate(180deg);
 }
 
 .dua-slide__transliteration,
@@ -407,7 +370,8 @@ body {
   transform: rotate(-90deg);
 }
 
-.dua-start {
+/* Что изменили: Привязали scroll-margin к реальному id секции | Зачем: корректный отступ при переходе по якорю #dua-start под фиксированной шапкой */
+#dua-start {
   scroll-margin-top: 88px;
 }
 
@@ -454,6 +418,11 @@ body {
   .dua-slide__arabic {
     max-width: 28ch;
     font-size: clamp(1.9rem, 2.45vw, 2.9rem);
+  }
+
+  .dua-slide__panel {
+    /* Что изменили: Еще немного уменьшили фиксированную высоту карточки на десктопе | Зачем: синхронно сохранить более компактный ритм секции */
+    height: clamp(360px, 54svh, 570px);
   }
 
   .dua-slide__transliteration {

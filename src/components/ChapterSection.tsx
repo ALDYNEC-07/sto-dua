@@ -21,14 +21,12 @@ const AXIS_LOCK_PX = 8;
 
 export default function ChapterSection({ id, title, duas }: ChapterSectionProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<Array<HTMLElement | null>>([]);
   const scrollEndTimeoutRef = useRef<number | null>(null);
   const touchStartXRef = useRef(0);
   const touchStartYRef = useRef(0);
   const swipeStartIndexRef = useRef(0);
   const swipeAxisRef = useRef<"x" | "y" | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [trackHeight, setTrackHeight] = useState<number | null>(null);
 
   // Что изменили: Вынесли повторяющееся ограничение индекса в один helper | Зачем: убрать дубли и держать границы слайдов в одном месте
   const clampIndex = (index: number) => {
@@ -51,24 +49,6 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
   useEffect(() => {
     return () => clearScrollEndTimeout();
   }, []);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    const activeSlide = slideRefs.current[activeIndex];
-    if (!track || !activeSlide) {
-      return;
-    }
-
-    const updateHeight = () => {
-      setTrackHeight(activeSlide.offsetHeight);
-    };
-
-    updateHeight();
-    const observer = new ResizeObserver(updateHeight);
-    observer.observe(activeSlide);
-
-    return () => observer.disconnect();
-  }, [activeIndex, duas.length]);
 
   const setActiveIndexFromScroll = () => {
     const track = trackRef.current;
@@ -176,26 +156,22 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onTouchCancel={handleTouchCancel}
-        style={trackHeight ? { height: `${trackHeight}px` } : undefined}
       >
-        {duas.map((dua, index) => {
+        {duas.map((dua) => {
           return (
-            <article
-              className="dua-slide"
-              key={dua.id}
-              ref={(node) => {
-                slideRefs.current[index] = node;
-              }}
-            >
+            <article className="dua-slide" key={dua.id}>
               <div className="dua-slide__panel">
                 <p className="dua-slide__index">{dua.id}</p>
-                <p className="dua-slide__arabic" lang="ar" dir="rtl">
-                  {dua.arabic}
-                </p>
+                {/* Что изменили: Вынесли текст дуа в отдельную прокручиваемую область | Зачем: фиксированная карточка без скачков высоты и удобное чтение длинных дуа */}
+                <div className="dua-slide__content">
+                  <p className="dua-slide__arabic" lang="ar" dir="rtl">
+                    {dua.arabic}
+                  </p>
 
-                <p className="dua-slide__transliteration">{dua.transliteration}</p>
+                  <p className="dua-slide__transliteration">{dua.transliteration}</p>
 
-                <p className="dua-slide__translation">{dua.translation}</p>
+                  <p className="dua-slide__translation">{dua.translation}</p>
+                </div>
               </div>
             </article>
           );
