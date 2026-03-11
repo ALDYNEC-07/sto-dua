@@ -23,59 +23,6 @@ body {
   background-size: cover;
 }
 
-.site-header {
-  /* Что изменили: Закрепили шапку сверху | Зачем: меню и логотип всегда остаются видимыми */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 12px 12px 0;
-}
-
-.site-header__inner {
-  /* Что изменили: Добавили полупрозрачный blur-фон | Зачем: элементы шапки читаются на фото-фоне */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 56px;
-  padding: 0 14px;
-  border-radius: 14px;
-  background: rgba(18, 18, 18, 0.34);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.site-logo {
-  margin: 0;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.burger-menu {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.burger-menu span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  margin-left: auto;
-  border-radius: 2px;
-  background: #fff;
-}
-
 .hero {
   position: relative;
   min-height: 100vh;
@@ -95,7 +42,7 @@ body {
 }
 
 .hero__content {
-  /* Что изменили: Добавили верхний отступ контенту hero | Зачем: заголовок не перекрывается фиксированной шапкой */
+  /* Что изменили: Подняли основной текст hero выше | Зачем: оставить комфортное место внизу под дополнительный блок с арабским текстом и переводом */
   position: relative;
   z-index: 2;
   min-height: 100vh;
@@ -103,7 +50,7 @@ body {
   align-content: center;
   place-items: center;
   gap: 10px;
-  padding: 88px 24px 24px;
+  padding: 88px 24px clamp(120px, 18vh, 180px);
   text-align: center;
 }
 
@@ -127,20 +74,7 @@ body {
     background-attachment: fixed;
   }
 
-  .site-header {
-    padding: 16px 20px 0;
-  }
-
-  .site-header__inner {
-    min-height: 64px;
-    padding: 0 18px;
-  }
-
-  .site-logo {
-    font-size: 1.1rem;
-  }
-
   .hero__content {
-    padding-top: 104px;
+    padding: 104px 32px clamp(150px, 22vh, 240px);
   }
 }

@@ -1,0 +1,65 @@
+.siteHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 12px 12px 0;
+}
+
+.siteHeaderInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: rgba(18, 18, 18, 0.34);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.siteLogo {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.burgerMenu {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.burgerMenu span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-left: auto;
+  border-radius: 2px;
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+  .siteHeader {
+    padding: 16px 20px 0;
+  }
+
+  .siteHeaderInner {
+    min-height: 64px;
+    padding: 0 18px;
+  }
+
+  .siteLogo {
+    font-size: 1.1rem;
+  }
+}
