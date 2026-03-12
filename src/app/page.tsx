@@ -1,5 +1,5 @@
 import ChapterSection from "../components/ChapterSection";
-import { chapterOne } from "../data/chapters";
+import { chapterOne, chapterTwo } from "../data/chapters";
 
 export default function Home() {
   return (
@@ -28,6 +28,12 @@ export default function Home() {
         id={chapterOne.id}
         title={chapterOne.title}
         duas={chapterOne.duas}
+      />
+
+      <ChapterSection
+        id={chapterTwo.id}
+        title={chapterTwo.title}
+        duas={chapterTwo.duas}
       />
     </main>
   );

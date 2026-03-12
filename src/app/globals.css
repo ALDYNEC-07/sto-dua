@@ -187,7 +187,8 @@ body {
 }
 
 .chapter {
-  min-height: 100svh;
+  /* Что изменили: Сделали секцию главы заметно ниже высоты экрана | Зачем: внизу стабильно виден вход в следующую главу */
+  min-height: calc(100svh - clamp(88px, 12vh, 132px));
   position: relative;
   z-index: 2;
   display: flex;
@@ -197,6 +198,11 @@ body {
   gap: clamp(14px, 2.8vh, 24px);
   padding: clamp(80px, 10vh, 106px) clamp(16px, 4vw, 44px) clamp(18px, 4vh, 36px);
   color: #fff;
+}
+
+.chapter + .chapter {
+  /* Что изменили: Уменьшили верхний отступ у последующих глав | Зачем: заголовок следующей главы появляется внизу уже на предыдущем блоке */
+  padding-top: clamp(22px, 4vh, 44px);
 }
 
 .chapter__title {
