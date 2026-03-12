@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  --page-gutter: 12px;
+}
+
 *,
 *::before,
 *::after {
@@ -187,7 +191,8 @@ body {
 }
 
 .chapter {
-  min-height: 100svh;
+  /* Что изменили: Сделали секцию главы заметно ниже высоты экрана | Зачем: внизу стабильно виден вход в следующую главу */
+  min-height: calc(100svh - clamp(88px, 12vh, 132px));
   position: relative;
   z-index: 2;
   display: flex;
@@ -195,8 +200,13 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: clamp(14px, 2.8vh, 24px);
-  padding: clamp(80px, 10vh, 106px) clamp(16px, 4vw, 44px) clamp(18px, 4vh, 36px);
+  padding: clamp(80px, 10vh, 106px) var(--page-gutter) clamp(18px, 4vh, 36px);
   color: #fff;
+}
+
+.chapter + .chapter {
+  /* Что изменили: Уменьшили верхний отступ у последующих глав | Зачем: заголовок следующей главы появляется внизу уже на предыдущем блоке */
+  padding-top: clamp(22px, 4vh, 44px);
 }
 
 .chapter__title {
@@ -211,7 +221,7 @@ body {
 }
 
 .chapter__track {
-  width: min(980px, 100%);
+  width: 100%;
   display: flex;
   align-items: flex-start;
   overflow-x: auto;
@@ -237,11 +247,11 @@ body {
   display: flex;
   justify-content: center;
   text-align: center;
-  padding: 0 clamp(2px, 1vw, 10px);
+  padding: 0;
 }
 
 .dua-slide__panel {
-  width: min(860px, 100%);
+  width: 100%;
   /* Что изменили: Еще немного уменьшили фиксированную высоту карточки дуа на мобильных | Зачем: сделать блок компактнее по новому запросу */
   height: clamp(308px, 50svh, 470px);
   display: grid;
@@ -318,7 +328,7 @@ body {
 }
 
 .chapter__nav {
-  width: min(980px, 100%);
+  width: 100%;
   margin-top: clamp(4px, 1.2vh, 12px);
   display: flex;
   align-items: center;
@@ -374,10 +384,6 @@ body {
   transform: rotate(-90deg);
 }
 
-/* Что изменили: Привязали scroll-margin к реальному id секции | Зачем: корректный отступ при переходе по якорю #dua-start под фиксированной шапкой */
-#dua-start {
-  scroll-margin-top: 88px;
-}
 
 @keyframes heroArrowFloat {
   0% {
@@ -392,6 +398,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  :root {
+    --page-gutter: 20px;
+  }
+
   .hero__content {
     padding: 104px 32px clamp(220px, 31vh, 340px);
   }

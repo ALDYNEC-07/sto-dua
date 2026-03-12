@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 12px 12px 0;
+  padding: 0 var(--page-gutter) 0;
 }
 
 .siteHeaderInner {
@@ -13,7 +13,7 @@
   justify-content: space-between;
   min-height: 56px;
   padding: 0 14px;
-  border-radius: 14px;
+  border-radius: 0 0 14px 14px;
   background: rgba(18, 18, 18, 0.34);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -51,7 +51,7 @@
 
 @media (min-width: 768px) {
   .siteHeader {
-    padding: 16px 20px 0;
+    padding: 0 var(--page-gutter) 0;
   }
 
   .siteHeaderInner {
