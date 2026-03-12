@@ -18,18 +18,30 @@ body {
 
 html {
   scroll-behavior: smooth;
+  background-color: #0f0f0f;
 }
 
 body {
-  /* Что изменили: Сделали hero-картинку фоном всего сайта | Зачем: единый фон на всех секциях, а не только в hero */
+  /* Что изменили: Оставили body только контейнером контента | Зачем: фиксированный фон выносим в pseudo-element для стабильности на мобильных браузерах */
   min-height: 100vh;
   font-family: "SF Pro Text", "Inter", "Segoe UI", "Noto Sans", sans-serif;
-  background-color: #0f0f0f;
+  background-color: transparent;
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  /* Что изменили: Перенесли фон в fixed-слой | Зачем: заменить нестабильный background-attachment: fixed на мобильных */
+  content: "";
+  position: fixed;
+  inset: 0;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
-  background-attachment: fixed;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateZ(0);
 }
 
 .hero {
@@ -382,6 +394,21 @@ body {
 
 .chapter__nav-chevron--right {
   transform: rotate(-90deg);
+}
+
+.site-status {
+  position: relative;
+  z-index: 2;
+  padding: 8px var(--page-gutter) calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+.site-status__text {
+  margin: 0 auto;
+  max-width: 44ch;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.88rem, 1.8vw, 0.98rem);
+  line-height: 1.5;
 }
 
 

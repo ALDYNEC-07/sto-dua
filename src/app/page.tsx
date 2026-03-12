@@ -35,6 +35,10 @@ export default function Home() {
         title={chapterTwo.title}
         duas={chapterTwo.duas}
       />
+
+      <footer className="site-status" aria-label="Статус проекта">
+        <p className="site-status__text">Проект в разработке: пока загружены не все дуа.</p>
+      </footer>
     </main>
   );
 }
