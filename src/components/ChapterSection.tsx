@@ -157,11 +157,13 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         onTouchEnd={handleTouchEnd}
         onTouchCancel={handleTouchCancel}
       >
-        {duas.map((dua) => {
+        {duas.map((dua, index) => {
           return (
             <article className="dua-slide" key={dua.id}>
               <div className="dua-slide__panel">
-                <p className="dua-slide__index">{dua.id}</p>
+                <p className="dua-slide__index">
+                  {index + 1}/{duas.length}
+                </p>
                 {/* Что изменили: Вынесли текст дуа в отдельную прокручиваемую область | Зачем: фиксированная карточка без скачков высоты и удобное чтение длинных дуа */}
                 <div className="dua-slide__content">
                   <p className="dua-slide__arabic" lang="ar" dir="rtl">

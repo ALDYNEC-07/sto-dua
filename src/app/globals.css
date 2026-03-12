@@ -374,10 +374,6 @@ body {
   transform: rotate(-90deg);
 }
 
-/* Что изменили: Привязали scroll-margin к реальному id секции | Зачем: корректный отступ при переходе по якорю #dua-start под фиксированной шапкой */
-#dua-start {
-  scroll-margin-top: 88px;
-}
 
 @keyframes heroArrowFloat {
   0% {
