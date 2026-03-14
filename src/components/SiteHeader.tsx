@@ -6,6 +6,7 @@ import styles from "./SiteHeader.module.css";
 const chapterLinks = [
   { href: "/#dua-start", label: "Глава 1" },
   { href: "/#dua-forgiveness-mercy", label: "Глава 2" },
+  { href: "/#dua-guidance-steadfastness", label: "Глава 3" },
 ];
 
 export default function SiteHeader() {
