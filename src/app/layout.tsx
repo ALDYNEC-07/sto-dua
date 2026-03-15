@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { DisplaySettingsProvider } from "../components/DisplaySettingsProvider";
 import SiteHeader from "../components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -15,8 +16,11 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <SiteHeader />
-        {children}
+        <div className="site-background" aria-hidden="true" />
+        <DisplaySettingsProvider>
+          <SiteHeader />
+          {children}
+        </DisplaySettingsProvider>
       </body>
     </html>
   );

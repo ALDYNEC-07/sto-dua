@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useDisplaySettings } from "./DisplaySettingsProvider";
 
 type Dua = {
   id: number;
@@ -20,6 +21,7 @@ const SWIPE_THRESHOLD_PX = 44;
 const AXIS_LOCK_PX = 8;
 
 export default function ChapterSection({ id, title, duas }: ChapterSectionProps) {
+  const { showTransliteration } = useDisplaySettings();
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollEndTimeoutRef = useRef<number | null>(null);
   const touchStartXRef = useRef(0);
@@ -170,7 +172,9 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
                     {dua.arabic}
                   </p>
 
-                  <p className="dua-slide__transliteration">{dua.transliteration}</p>
+                  {showTransliteration ? (
+                    <p className="dua-slide__transliteration">{dua.transliteration}</p>
+                  ) : null}
 
                   <p className="dua-slide__translation">{dua.translation}</p>
                 </div>
