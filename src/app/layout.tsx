@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
+        <div className="site-background" aria-hidden="true" />
         <SiteHeader />
         {children}
       </body>

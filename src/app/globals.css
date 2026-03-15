@@ -22,19 +22,25 @@ html {
 }
 
 body {
-  /* Что изменили: Оставили body только контейнером контента | Зачем: фиксированный фон выносим в pseudo-element для стабильности на мобильных браузерах */
+  /* Что изменили: Оставили body контейнером поверх отдельного фонового слоя | Зачем: fixed DOM-элемент ведет себя стабильнее, чем pseudo-element на мобильных */
   min-height: 100vh;
+  min-height: 100svh;
   font-family: "SF Pro Text", "Inter", "Segoe UI", "Noto Sans", sans-serif;
   background-color: transparent;
   position: relative;
   isolation: isolate;
+  overflow-x: hidden;
 }
 
-body::before {
-  /* Что изменили: Перенесли фон в fixed-слой | Зачем: заменить нестабильный background-attachment: fixed на мобильных */
-  content: "";
+.site-background {
+  /* Что изменили: Вынесли фон в отдельный fixed-элемент | Зачем: на мобильных он не дергается при изменении высоты visual viewport */
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100lvh;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
@@ -42,6 +48,9 @@ body::before {
   z-index: -1;
   pointer-events: none;
   transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: paint;
 }
 
 .hero {
