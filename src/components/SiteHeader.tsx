@@ -7,6 +7,7 @@ const chapterLinks = [
   { href: "/#dua-start", label: "О РАЕ И ЗАЩИТЕ ОТ АДА" },
   { href: "/#dua-forgiveness-mercy", label: "О ПРОЩЕНИИ И МИЛОСТИ" },
   { href: "/#dua-guidance-steadfastness", label: "О НАСТАВЛЕНИИ И СТОЙКОСТИ" },
+  { href: "/#dua-good-this-world-hereafter", label: "О БЛАГЕ ЭТОГО И ВЕЧНОГО МИРА" },
 ];
 
 export default function SiteHeader() {

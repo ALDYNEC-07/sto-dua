@@ -1,5 +1,5 @@
 import ChapterSection from "../components/ChapterSection";
-import { chapterOne, chapterThree, chapterTwo } from "../data/chapters";
+import { chapterFour, chapterOne, chapterThree, chapterTwo } from "../data/chapters";
 
 export default function Home() {
   return (
@@ -40,6 +40,12 @@ export default function Home() {
         id={chapterThree.id}
         title={chapterThree.title}
         duas={chapterThree.duas}
+      />
+
+      <ChapterSection
+        id={chapterFour.id}
+        title={chapterFour.title}
+        duas={chapterFour.duas}
       />
 
       <footer className="site-status" aria-label="Статус проекта">
