@@ -37,17 +37,33 @@
   letter-spacing: 0.12em;
 }
 
-.burgerMenu {
+.siteActions {
   display: inline-flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.iconButton {
+  display: inline-flex;
   justify-content: center;
-  gap: 6px;
+  align-items: center;
   width: 40px;
   height: 40px;
   padding: 0;
   border: 0;
   background: transparent;
+  color: #fff;
   cursor: pointer;
+}
+
+.settingsButton {
+  width: 30px;
+  justify-content: flex-end;
+}
+
+.burgerMenu {
+  flex-direction: column;
+  gap: 6px;
 }
 
 .burgerMenu span {
@@ -68,6 +84,15 @@
   transform: translateY(-4px) rotate(-45deg);
 }
 
+.settingsIcon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.siteSettings,
 .siteMenu {
   margin-top: 8px;
   padding: 8px;
@@ -83,10 +108,74 @@
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+.siteSettings {
+  display: block;
+}
+
+.siteSettingsOpen,
 .siteMenuOpen {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.settingsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.settingsText {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switchInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.switchTrack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 46px;
+  height: 28px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: background 180ms ease;
+}
+
+.switchThumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #fff;
+  transition: transform 180ms ease;
+}
+
+.switchInput:checked + .switchTrack {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.switchInput:checked + .switchTrack .switchThumb {
+  transform: translateX(18px);
+}
+
+.switchInput:focus-visible + .switchTrack {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
 }
 
 .siteMenuLink {
