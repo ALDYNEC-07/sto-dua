@@ -9,6 +9,7 @@ const chapterLinks = [
   { href: "/#dua-forgiveness-mercy", label: "О ПРОЩЕНИИ И МИЛОСТИ" },
   { href: "/#dua-guidance-steadfastness", label: "О НАСТАВЛЕНИИ И СТОЙКОСТИ" },
   { href: "/#dua-good-this-world-hereafter", label: "О БЛАГЕ ЭТОГО И ВЕЧНОГО МИРА" },
+  { href: "/#dua-parents-family-children", label: "О РОДИТЕЛЯХ, СЕМЬЕ И ДЕТЯХ" },
 ];
 
 export default function SiteHeader() {
