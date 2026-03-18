@@ -17,6 +17,11 @@
   padding: 0 var(--page-gutter) 0;
 }
 
+.siteHeaderFrame {
+  position: relative;
+  isolation: isolate;
+}
+
 .siteHeaderInner {
   display: flex;
   align-items: center;
@@ -94,7 +99,10 @@
 
 .siteSettings,
 .siteMenu {
-  margin-top: 8px;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  width: min(22rem, calc(100vw - (var(--page-gutter) * 2)));
   padding: 8px;
   border-radius: 14px;
   background: rgba(18, 18, 18, 0.52);
@@ -104,8 +112,9 @@
   gap: 4px;
   opacity: 0;
   transform: translateY(-8px);
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
 }
 
 .siteSettings {
@@ -116,6 +125,7 @@
 .siteMenuOpen {
   opacity: 1;
   transform: translateY(0);
+  visibility: visible;
   pointer-events: auto;
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { DisplaySettingsProvider } from "../components/DisplaySettingsProvider";
 import SiteHeader from "../components/SiteHeader";
@@ -21,6 +22,7 @@ export default function RootLayout({
           <SiteHeader />
           {children}
         </DisplaySettingsProvider>
+        <Analytics />
       </body>
     </html>
   );
