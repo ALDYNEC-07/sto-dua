@@ -10,6 +10,7 @@ const chapterLinks = [
   { href: "/#dua-guidance-steadfastness", label: "О НАСТАВЛЕНИИ И СТОЙКОСТИ" },
   { href: "/#dua-good-this-world-hereafter", label: "О БЛАГЕ ЭТОГО И ВЕЧНОГО МИРА" },
   { href: "/#dua-parents-family-children", label: "О РОДИТЕЛЯХ, СЕМЬЕ И ДЕТЯХ" },
+  { href: "/#dua-religion-hereafter", label: "О РЕЛИГИИ И АХИРАТЕ" },
 ];
 
 export default function SiteHeader() {

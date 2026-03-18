@@ -3,6 +3,7 @@ import {
   chapterFive,
   chapterFour,
   chapterOne,
+  chapterSix,
   chapterThree,
   chapterTwo,
 } from "../data/chapters";
@@ -58,6 +59,12 @@ export default function Home() {
         id={chapterFive.id}
         title={chapterFive.title}
         duas={chapterFive.duas}
+      />
+
+      <ChapterSection
+        id={chapterSix.id}
+        title={chapterSix.title}
+        duas={chapterSix.duas}
       />
 
       <footer className="site-status" aria-label="Статус проекта">
