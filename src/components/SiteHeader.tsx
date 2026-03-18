@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useDisplaySettings } from "./DisplaySettingsProvider";
 import styles from "./SiteHeader.module.css";
@@ -69,10 +70,12 @@ export default function SiteHeader() {
                 aria-controls="site-settings"
                 onClick={toggleSettings}
               >
-                <img
+                <Image
                   className={styles.settingsIcon}
                   src="/settihgs.svg"
                   alt=""
+                  width={22}
+                  height={22}
                   aria-hidden="true"
                 />
               </button>
