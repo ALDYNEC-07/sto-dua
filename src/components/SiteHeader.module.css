@@ -62,8 +62,26 @@
 }
 
 .settingsButton {
+  position: relative;
+  isolation: isolate;
   width: 30px;
   justify-content: flex-end;
+  transition: transform 180ms ease;
+}
+
+.settingsButton::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.72);
+  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .burgerMenu {
@@ -77,8 +95,26 @@
   height: 2px;
   margin-left: auto;
   border-radius: 2px;
+  background: rgba(255, 255, 255, 0.92);
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    background-color 180ms ease;
+}
+
+.burgerMenu:not([aria-expanded="true"]):hover span,
+.burgerMenu:not([aria-expanded="true"]):focus-visible span {
   background: #fff;
-  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.burgerMenu:not([aria-expanded="true"]):hover span:first-child,
+.burgerMenu:not([aria-expanded="true"]):focus-visible span:first-child {
+  transform: translateX(-2px);
+}
+
+.burgerMenu:not([aria-expanded="true"]):hover span:last-child,
+.burgerMenu:not([aria-expanded="true"]):focus-visible span:last-child {
+  transform: translateX(2px);
 }
 
 .burgerMenu[aria-expanded="true"] span:first-child {
@@ -95,6 +131,40 @@
   display: block;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  transform-origin: center;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms ease;
+}
+
+.settingsButton:hover::before,
+.settingsButton:focus-visible::before,
+.settingsButton[aria-expanded="true"]::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.settingsButton:hover .settingsIcon,
+.settingsButton:focus-visible .settingsIcon {
+  transform: rotate(32deg) scale(1.04);
+}
+
+.settingsButton[aria-expanded="true"] .settingsIcon {
+  transform: rotate(84deg) scale(1.06);
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.18));
+}
+
+.settingsButton:active {
+  transform: translateY(1px);
+}
+
+.settingsButton:active::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.16);
+}
+
+.settingsButton:active .settingsIcon {
+  transform: rotate(138deg) scale(0.9);
 }
 
 .siteSettings,
