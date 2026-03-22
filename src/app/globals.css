@@ -384,6 +384,29 @@ body {
   pointer-events: none;
 }
 
+.chapter__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.chapter__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.chapter__dot--active {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.25);
+}
+
 .chapter__nav-chevron {
   position: relative;
   display: block;

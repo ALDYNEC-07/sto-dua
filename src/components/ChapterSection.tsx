@@ -197,6 +197,20 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           <span className="chapter__nav-chevron chapter__nav-chevron--left" aria-hidden="true" />
         </button>
 
+        <div className="chapter__dots" role="tablist" aria-label="Выбор дуа">
+          {duas.map((dua, index) => (
+            <button
+              key={dua.id}
+              className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
+              type="button"
+              role="tab"
+              aria-selected={index === activeIndex}
+              aria-label={`Дуа ${index + 1} из ${duas.length}`}
+              onClick={() => scrollToIndex(index)}
+            />
+          ))}
+        </div>
+
         <button
           className="chapter__nav-btn"
           type="button"
