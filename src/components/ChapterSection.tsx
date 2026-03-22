@@ -2,19 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDisplaySettings } from "./DisplaySettingsProvider";
+import type { Chapter } from "../types";
 
-type Dua = {
-  id: number;
-  arabic: string;
-  transliteration: string;
-  translation: string;
-};
-
-type ChapterSectionProps = {
-  id: string;
-  title: string;
-  duas: Dua[];
-};
+type ChapterSectionProps = Chapter;
 
 // Что изменили: Добавили пороги для определения уверенного свайпа и фиксации оси жеста | Зачем: один свайп = один стабильный перелист без ложных срабатываний
 const SWIPE_THRESHOLD_PX = 44;

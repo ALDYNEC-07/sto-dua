@@ -1,4 +1,6 @@
-export const chapterOne = {
+import type { Chapter } from "../types";
+
+export const chapterOne: Chapter = {
   id: "dua-start",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА РАЯ И ЗАЩИТЫ ОТ АДА",
   duas: [
@@ -44,7 +46,7 @@ export const chapterOne = {
   ],
 };
 
-export const chapterTwo = {
+export const chapterTwo: Chapter = {
   id: "dua-forgiveness-mercy",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА ПРОЩЕНИЯ И МИЛОСТИ",
   duas: [
@@ -215,7 +217,7 @@ export const chapterTwo = {
   ],
 };
 
-export const chapterThree = {
+export const chapterThree: Chapter = {
   id: "dua-guidance-steadfastness",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА НАСТАВЛЕНИЯ И СТОЙКОСТИ",
   duas: [
@@ -319,7 +321,7 @@ export const chapterThree = {
   ],
 };
 
-export const chapterFour = {
+export const chapterFour: Chapter = {
   id: "dua-good-this-world-hereafter",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА БЛАГА В ОБОИХ МИРАХ",
   duas: [
@@ -440,7 +442,7 @@ export const chapterFour = {
   ],
 };
 
-export const chapterFive = {
+export const chapterFive: Chapter = {
   id: "dua-parents-family-children",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА БЛАГА ДЛЯ СЕМЬИ",
   duas: [
@@ -500,7 +502,7 @@ export const chapterFive = {
   ],
 };
 
-export const chapterSix = {
+export const chapterSix: Chapter = {
   id: "dua-religion-hereafter",
   title: "ИСПРАШИВАНИЕ У АЛЛАХА БЛАГА РЕЛИГИИ И АХИРАТА",
   duas: [
