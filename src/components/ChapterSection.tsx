@@ -186,40 +186,18 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         })}
       </div>
 
-      <div className="chapter__nav">
-        <button
-          className="chapter__nav-btn"
-          type="button"
-          aria-label="Предыдущее дуа"
-          disabled={activeIndex === 0}
-          onClick={() => scrollOneSlide(-1)}
-        >
-          <span className="chapter__nav-chevron chapter__nav-chevron--left" aria-hidden="true" />
-        </button>
-
-        <div className="chapter__dots" role="tablist" aria-label="Выбор дуа">
-          {duas.map((dua, index) => (
-            <button
-              key={dua.id}
-              className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
-              type="button"
-              role="tab"
-              aria-selected={index === activeIndex}
-              aria-label={`Дуа ${index + 1} из ${duas.length}`}
-              onClick={() => scrollToIndex(index)}
-            />
-          ))}
-        </div>
-
-        <button
-          className="chapter__nav-btn"
-          type="button"
-          aria-label="Следующее дуа"
-          disabled={activeIndex === duas.length - 1}
-          onClick={() => scrollOneSlide(1)}
-        >
-          <span className="chapter__nav-chevron chapter__nav-chevron--right" aria-hidden="true" />
-        </button>
+      <div className="chapter__dots" role="tablist" aria-label="Выбор дуа">
+        {duas.map((dua, index) => (
+          <button
+            key={dua.id}
+            className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
+            type="button"
+            role="tab"
+            aria-selected={index === activeIndex}
+            aria-label={`Дуа ${index + 1} из ${duas.length}`}
+            onClick={() => scrollToIndex(index)}
+          />
+        ))}
       </div>
     </section>
   );
