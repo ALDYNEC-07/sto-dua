@@ -78,6 +78,16 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
     scrollToIndex(activeIndex + direction);
   };
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      scrollOneSlide(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      scrollOneSlide(1);
+    }
+  };
+
   // Что изменили: Сдвинули обновление активного слайда на окончание скролла | Зачем: убрать дергания из-за частых промежуточных пересчетов во время инерции
   const handleTrackScroll = () => {
     clearScrollEndTimeout();
@@ -153,6 +163,8 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
       <div
         className="chapter__track"
         ref={trackRef}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
         onScroll={handleTrackScroll}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}

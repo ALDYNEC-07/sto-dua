@@ -2,6 +2,11 @@
 
 :root {
   --page-gutter: 12px;
+  --hero-content-max-width: 100%;
+  --chapter-track-max-width: 100%;
+  --dua-panel-max-width: 100%;
+  --chapter-nav-max-width: 100%;
+  --dua-slide-gap: 14px;
 }
 
 *,
@@ -79,6 +84,8 @@ body {
   z-index: 2;
   min-height: 100vh;
   min-height: 100svh;
+  width: min(100%, var(--hero-content-max-width));
+  margin: 0 auto;
   display: grid;
   align-content: center;
   place-items: center;
@@ -242,7 +249,7 @@ body {
 }
 
 .chapter__track {
-  width: 100%;
+  width: min(100%, var(--chapter-track-max-width));
   display: flex;
   align-items: flex-start;
   overflow-x: auto;
@@ -271,8 +278,14 @@ body {
   padding: 0;
 }
 
+@media (max-width: 1023px) {
+  .dua-slide:not(:first-child):not(:last-child) {
+    justify-content: flex-start;
+  }
+}
+
 .dua-slide__panel {
-  width: 100%;
+  width: min(calc(100% - var(--dua-slide-gap)), var(--dua-panel-max-width));
   /* Что изменили: Еще немного уменьшили высоту карточки дуа | Зачем: сделать секцию компактнее без потери читабельности */
   height: clamp(296px, 48svh, 440px);
   display: grid;
@@ -349,7 +362,7 @@ body {
 }
 
 .chapter__nav {
-  width: 100%;
+  width: min(100%, var(--chapter-nav-max-width));
   margin-top: clamp(4px, 1.2vh, 12px);
   display: flex;
   align-items: center;
@@ -481,6 +494,42 @@ body {
 
   .dua-slide__translation {
     font-size: clamp(1rem, 1.1vw, 1.14rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: clamp(24px, 3vw, 40px);
+    --hero-content-max-width: 980px;
+    --chapter-track-max-width: 1120px;
+    --dua-panel-max-width: 820px;
+    --chapter-nav-max-width: 820px;
+  }
+
+  .hero__content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .hero__title {
+    max-width: 11ch;
+  }
+
+  .hero__subtitle {
+    max-width: 24ch;
+  }
+
+  .hero__bismillah {
+    width: min(760px, 100%);
+  }
+
+  .chapter__title {
+    max-width: 28ch;
+  }
+
+  .dua-slide__panel {
+    padding-left: clamp(22px, 2vw, 30px);
+    padding-right: clamp(22px, 2vw, 30px);
   }
 }
 
