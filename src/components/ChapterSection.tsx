@@ -191,6 +191,7 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           className="chapter__nav-btn"
           type="button"
           aria-label="Предыдущее дуа"
+          disabled={activeIndex === 0}
           onClick={() => scrollOneSlide(-1)}
         >
           <span className="chapter__nav-chevron chapter__nav-chevron--left" aria-hidden="true" />
@@ -200,6 +201,7 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           className="chapter__nav-btn"
           type="button"
           aria-label="Следующее дуа"
+          disabled={activeIndex === duas.length - 1}
           onClick={() => scrollOneSlide(1)}
         >
           <span className="chapter__nav-chevron chapter__nav-chevron--right" aria-hidden="true" />

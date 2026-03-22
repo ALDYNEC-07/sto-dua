@@ -375,6 +375,13 @@ body {
   background: transparent;
   color: rgba(255, 255, 255, 0.94);
   cursor: pointer;
+  transition: opacity 200ms ease;
+}
+
+.chapter__nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
 }
 
 .chapter__nav-chevron {
