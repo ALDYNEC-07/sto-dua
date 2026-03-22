@@ -1,17 +1,18 @@
 import ChapterSection from "../components/ChapterSection";
 import {
-  chapterFive,
-  chapterFour,
   chapterOne,
-  chapterSix,
-  chapterThree,
   chapterTwo,
+  chapterThree,
+  chapterFour,
+  chapterFive,
+  chapterSix,
 } from "../data/chapters";
+
+const chapters = [chapterOne, chapterTwo, chapterThree, chapterFour, chapterFive, chapterSix];
 
 export default function Home() {
   return (
     <main>
-      {/* Что изменили: Убрали локальную картинку из hero | Зачем: теперь фон задается глобально для всего сайта через body */}
       <section className="hero">
         <div className="hero__overlay" />
         <div className="hero__content">
@@ -31,41 +32,14 @@ export default function Home() {
         </div>
       </section>
 
-      <ChapterSection
-        id={chapterOne.id}
-        title={chapterOne.title}
-        duas={chapterOne.duas}
-      />
-
-      <ChapterSection
-        id={chapterTwo.id}
-        title={chapterTwo.title}
-        duas={chapterTwo.duas}
-      />
-
-      <ChapterSection
-        id={chapterThree.id}
-        title={chapterThree.title}
-        duas={chapterThree.duas}
-      />
-
-      <ChapterSection
-        id={chapterFour.id}
-        title={chapterFour.title}
-        duas={chapterFour.duas}
-      />
-
-      <ChapterSection
-        id={chapterFive.id}
-        title={chapterFive.title}
-        duas={chapterFive.duas}
-      />
-
-      <ChapterSection
-        id={chapterSix.id}
-        title={chapterSix.title}
-        duas={chapterSix.duas}
-      />
+      {chapters.map((chapter) => (
+        <ChapterSection
+          key={chapter.id}
+          id={chapter.id}
+          title={chapter.title}
+          duas={chapter.duas}
+        />
+      ))}
 
       <footer className="site-status" aria-label="Статус проекта">
         <p className="site-status__text">Проект в разработке: пока загружены не все дуа.</p>
