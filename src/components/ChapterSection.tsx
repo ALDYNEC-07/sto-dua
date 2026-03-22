@@ -2,19 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDisplaySettings } from "./DisplaySettingsProvider";
+import type { Chapter } from "../types";
 
-type Dua = {
-  id: number;
-  arabic: string;
-  transliteration: string;
-  translation: string;
-};
-
-type ChapterSectionProps = {
-  id: string;
-  title: string;
-  duas: Dua[];
-};
+type ChapterSectionProps = Chapter;
 
 // Что изменили: Добавили пороги для определения уверенного свайпа и фиксации оси жеста | Зачем: один свайп = один стабильный перелист без ложных срабатываний
 const SWIPE_THRESHOLD_PX = 44;
@@ -76,6 +66,16 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
 
   const scrollOneSlide = (direction: -1 | 1) => {
     scrollToIndex(activeIndex + direction);
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      scrollOneSlide(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      scrollOneSlide(1);
+    }
   };
 
   // Что изменили: Сдвинули обновление активного слайда на окончание скролла | Зачем: убрать дергания из-за частых промежуточных пересчетов во время инерции
@@ -153,6 +153,8 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
       <div
         className="chapter__track"
         ref={trackRef}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
         onScroll={handleTrackScroll}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -184,24 +186,18 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         })}
       </div>
 
-      <div className="chapter__nav">
-        <button
-          className="chapter__nav-btn"
-          type="button"
-          aria-label="Предыдущее дуа"
-          onClick={() => scrollOneSlide(-1)}
-        >
-          <span className="chapter__nav-chevron chapter__nav-chevron--left" aria-hidden="true" />
-        </button>
-
-        <button
-          className="chapter__nav-btn"
-          type="button"
-          aria-label="Следующее дуа"
-          onClick={() => scrollOneSlide(1)}
-        >
-          <span className="chapter__nav-chevron chapter__nav-chevron--right" aria-hidden="true" />
-        </button>
+      <div className="chapter__dots" role="tablist" aria-label="Выбор дуа">
+        {duas.map((dua, index) => (
+          <button
+            key={dua.id}
+            className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
+            type="button"
+            role="tab"
+            aria-selected={index === activeIndex}
+            aria-label={`Дуа ${index + 1} из ${duas.length}`}
+            onClick={() => scrollToIndex(index)}
+          />
+        ))}
       </div>
     </section>
   );

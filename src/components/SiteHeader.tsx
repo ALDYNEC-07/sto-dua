@@ -72,7 +72,7 @@ export default function SiteHeader() {
               >
                 <Image
                   className={styles.settingsIcon}
-                  src="/settihgs.svg"
+                  src="/settings.svg"
                   alt=""
                   width={22}
                   height={22}
