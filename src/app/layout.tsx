@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
+import { Noto_Naskh_Arabic, Noto_Sans_Arabic } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { DisplaySettingsProvider } from "../components/DisplaySettingsProvider";
 import SiteHeader from "../components/SiteHeader";
+
+const notoNaskhArabic = Noto_Naskh_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-noto-naskh",
+});
+
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["200", "400", "700"],
+  display: "swap",
+  variable: "--font-noto-sans-arabic",
+});
 
 const SITE_URL = "https://sto-dua.vercel.app";
 const SITE_TITLE = "100 ДУА — из Корана и Сунны";
@@ -47,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${notoNaskhArabic.variable} ${notoSansArabic.variable}`}>
       <body>
         <div className="site-background" aria-hidden="true" />
         <DisplaySettingsProvider>

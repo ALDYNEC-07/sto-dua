@@ -141,7 +141,7 @@ body {
 .hero__bismillah-ar {
   margin: 0;
   color: rgba(255, 255, 255, 0.97);
-  font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Times New Roman",
+  font-family: var(--font-noto-naskh), "Amiri", "Scheherazade New", "Times New Roman",
     serif;
   font-weight: 300;
   direction: rtl;
@@ -326,7 +326,7 @@ body {
   margin: 0;
   max-width: 23ch;
   color: rgba(255, 255, 255, 0.92);
-  font-family: "Noto Sans Arabic", "Noto Naskh Arabic", "Amiri", "Scheherazade New",
+  font-family: var(--font-noto-sans-arabic), var(--font-noto-naskh), "Amiri", "Scheherazade New",
     "Times New Roman", serif;
   font-weight: 200;
   font-size: clamp(1.62rem, 4.7vw, 2.62rem);
