@@ -1,9 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /Users/a1/Desktop/sto-dua -type d ! -path */node_modules/* ! -path */.next/* ! -path */.git/*)",
+      "Edit",
+      "Write",
+      "Bash(git:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
       "Bash(npm uninstall:*)",
-      "Bash(npm run:*)"
+      "Bash(ls:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm -r:*)"
     ]
   }
 }
