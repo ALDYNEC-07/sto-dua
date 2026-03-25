@@ -262,7 +262,7 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
             <article className="dua-slide" key={dua.id}>
               <div className="dua-slide__panel">
                 <p className="dua-slide__index">
-                  {index + 1}/{duas.length}
+                  {index + 1} · {duas.length}
                 </p>
                 {/* Что изменили: Вынесли текст дуа в отдельную прокручиваемую область | Зачем: фиксированная карточка без скачков высоты и удобное чтение длинных дуа */}
                 <div className="dua-slide__content">
