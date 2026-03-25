@@ -37,23 +37,18 @@ body {
 
 .site-background {
   /* Что изменили: Вынесли фон в отдельный fixed-элемент | Зачем: на мобильных он не дергается при изменении высоты visual viewport */
+  /* Изменено: убраны transform/will-change/contain | Зачем: в Яндекс Браузере (старое Chromium-ядро) эти GPU-хинты на соседнем fixed-элементе ломали position: fixed у шапки при скролле */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
-  height: 100lvh;
+  height: 100%;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   z-index: -1;
   pointer-events: none;
-  transform: translateZ(0);
-  will-change: transform;
-  backface-visibility: hidden;
-  contain: paint;
 }
 
 .hero {
@@ -403,7 +398,21 @@ body {
 
 .chapter__dot--active {
   background: rgba(255, 255, 255, 0.9);
-  transform: scale(1.25);
+}
+
+/* Изменено: добавлен режим скользящих точек | Зачем: при 40+ дуа точки не помещались на мобильном экране и вызывали горизонтальный overflow */
+.chapter__dots--sliding {
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+.chapter__dots--sliding .chapter__dot::before {
+  display: none;
+}
+
+.chapter__dots--sliding .chapter__dot {
+  flex-shrink: 0;
 }
 
 

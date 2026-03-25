@@ -6,6 +6,98 @@ import type { Chapter } from "../types";
 
 type ChapterSectionProps = Chapter;
 
+// Изменено: добавлен компонент SlidingDots | Зачем: при 40+ дуа все точки не помещаются на мобильном экране — показываем окно из 5 точек с плавным скольжением
+const MAX_VISIBLE_DOTS = 5;
+const DOT_SIZE = 8;
+const DOT_GAP = 8;
+
+function SlidingDots({
+  total,
+  activeIndex,
+  onDotClick,
+}: {
+  total: number;
+  activeIndex: number;
+  onDotClick: (index: number) => void;
+}) {
+  const useSlidingMode = total > MAX_VISIBLE_DOTS;
+  const dotStep = DOT_SIZE + DOT_GAP;
+
+  if (!useSlidingMode) {
+    return (
+      <div className="chapter__dots" role="group" aria-label="Навигация по дуа">
+        {Array.from({ length: total }, (_, index) => (
+          <button
+            key={index}
+            className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
+            type="button"
+            aria-label={`Дуа ${index + 1} из ${total}`}
+            aria-current={index === activeIndex ? "true" : undefined}
+            onClick={() => onDotClick(index)}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  const containerWidth = MAX_VISIBLE_DOTS * DOT_SIZE + (MAX_VISIBLE_DOTS - 1) * DOT_GAP;
+  const totalTrackWidth = total * DOT_SIZE + (total - 1) * DOT_GAP;
+  const centerOffset = containerWidth / 2;
+  const activeDotCenter = activeIndex * dotStep + DOT_SIZE / 2;
+  const rawTranslate = centerOffset - activeDotCenter;
+  const clampedTranslate = Math.min(0, Math.max(containerWidth - totalTrackWidth, rawTranslate));
+
+  return (
+    <div
+      className="chapter__dots chapter__dots--sliding"
+      role="group"
+      aria-label="Навигация по дуа"
+      style={{ maxWidth: containerWidth, overflow: "hidden" }}
+    >
+      <div
+        className="chapter__dots-track"
+        style={{
+          display: "flex",
+          gap: DOT_GAP,
+          transform: `translateX(${clampedTranslate}px)`,
+          transition: "transform 200ms ease",
+        }}
+      >
+        {Array.from({ length: total }, (_, index) => {
+          const dotCenter = index * dotStep + DOT_SIZE / 2;
+          const posInContainer = dotCenter + clampedTranslate;
+          const distFromCenter = Math.abs(posInContainer - centerOffset) / dotStep;
+          let scale = 1;
+          let opacity = 1;
+          if (distFromCenter > 2.5) {
+            scale = 0;
+            opacity = 0;
+          } else if (distFromCenter > 1.5) {
+            scale = 0.5;
+            opacity = 0.3;
+          }
+
+          return (
+            <button
+              key={index}
+              className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
+              type="button"
+              aria-label={`Дуа ${index + 1} из ${total}`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              onClick={() => onDotClick(index)}
+              style={{
+                transform: `scale(${index === activeIndex ? 1 : scale})`,
+                opacity: index === activeIndex ? 1 : opacity,
+                transition: "transform 200ms ease, opacity 200ms ease",
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // Что изменили: Добавили пороги для определения уверенного свайпа и фиксации оси жеста | Зачем: один свайп = один стабильный перелист без ложных срабатываний
 const SWIPE_THRESHOLD_PX = 44;
 const AXIS_LOCK_PX = 8;
@@ -190,19 +282,12 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         })}
       </div>
 
-      {/* Изменено: заменены role="tablist"/"tab" на group | Зачем: точки навигации карусели — не табы, корректная семантика для скринридеров */}
-      <div className="chapter__dots" role="group" aria-label="Навигация по дуа">
-        {duas.map((dua, index) => (
-          <button
-            key={dua.id}
-            className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
-            type="button"
-            aria-label={`Дуа ${index + 1} из ${duas.length}`}
-            aria-current={index === activeIndex ? "true" : undefined}
-            onClick={() => scrollToIndex(index)}
-          />
-        ))}
-      </div>
+      {/* Изменено: скользящие точки (макс. 5 видимых) | Зачем: при 40+ дуа точки не помещались на экран и вызывали горизонтальный overflow, ломая position: fixed у шапки в Яндекс Браузере */}
+      <SlidingDots
+        total={duas.length}
+        activeIndex={activeIndex}
+        onDotClick={scrollToIndex}
+      />
     </section>
   );
 }
