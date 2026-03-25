@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Naskh_Arabic, Noto_Sans_Arabic } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -23,6 +23,12 @@ const SITE_URL = "https://sto-dua.vercel.app";
 const SITE_TITLE = "100 ДУА — из Корана и Сунны";
 const SITE_DESCRIPTION =
   "Сборник из 100 дуа (мольб) из Корана и Сунны с арабским текстом, транскрипцией и переводом на русский язык.";
+
+// Изменено: добавлен viewport | Зачем: без него мобильные браузеры рендерят страницу в десктопном режиме (~980px), из-за чего шапка и контент выходят за экран
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
@@ -51,7 +57,12 @@ export const metadata: Metadata = {
     images: ["/hero-dua.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    /* Изменено: добавлены все размеры иконок | Зачем: корректное отображение favicon на всех устройствах */
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
     apple: "/apple-touch-icon.png",
   },
 };

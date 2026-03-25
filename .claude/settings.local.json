@@ -1,9 +1,32 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /Users/a1/Desktop/sto-dua -type d ! -path */node_modules/* ! -path */.next/* ! -path */.git/*)",
+      "Edit",
+      "Write",
+      "Bash(git:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
       "Bash(npm uninstall:*)",
-      "Bash(npm run:*)"
+      "Bash(ls:*)",
+      "Bash(claude mcp:*)",
+      "Bash(npx @anthropic-ai/mcp-playwright --help)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_wait_for",
+      "Bash(sips --getProperty pixelWidth --getProperty pixelHeight /Users/a1/Desktop/sto-dua/mobile-top.png)",
+      "Bash(sips:*)",
+      "Bash(python3 -c \"from PIL import Image; print\\(''PIL available''\\)\")",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm -r:*)"
     ]
   }
 }

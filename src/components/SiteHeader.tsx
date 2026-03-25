@@ -58,7 +58,8 @@ export default function SiteHeader() {
       <header className={styles.siteHeader}>
         <div className={styles.siteHeaderFrame}>
           <div className={styles.siteHeaderInner}>
-            <div className={styles.siteLogo} aria-label="Brand logo">
+            {/* Изменено: aria-label переведён на русский | Зачем: доступность — интерфейс на русском, aria-label тоже */}
+            <div className={styles.siteLogo} aria-label="Логотип сайта">
               DUA
             </div>
             <div className={styles.siteActions}>

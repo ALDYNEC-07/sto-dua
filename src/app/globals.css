@@ -21,6 +21,8 @@ body {
 html {
   scroll-behavior: smooth;
   background-color: #0f0f0f;
+  /* Изменено: перенесли overflow-x: hidden с body на html | Зачем: в Яндекс браузере и ряде Chromium-браузеров overflow-x на body делает body корневым скролл-контейнером, из-за чего position: fixed перестаёт работать при скролле */
+  overflow-x: hidden;
 }
 
 body {
@@ -31,28 +33,22 @@ body {
   background-color: transparent;
   position: relative;
   isolation: isolate;
-  overflow-x: hidden;
 }
 
 .site-background {
   /* Что изменили: Вынесли фон в отдельный fixed-элемент | Зачем: на мобильных он не дергается при изменении высоты visual viewport */
+  /* Изменено: убраны transform/will-change/contain | Зачем: в Яндекс Браузере (старое Chromium-ядро) эти GPU-хинты на соседнем fixed-элементе ломали position: fixed у шапки при скролле */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
-  height: 100lvh;
+  height: 100%;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   z-index: -1;
   pointer-events: none;
-  transform: translateZ(0);
-  will-change: transform;
-  backface-visibility: hidden;
-  contain: paint;
 }
 
 .hero {
@@ -259,6 +255,13 @@ body {
   -ms-overflow-style: none;
 }
 
+/* Изменено: добавлен фокус-индикатор на трек карусели | Зачем: пользователь видит, что карусель сфокусирована и готова к управлению стрелками */
+.chapter__track:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
 .chapter__track::-webkit-scrollbar {
   display: none;
 }
@@ -275,11 +278,7 @@ body {
   padding: 0;
 }
 
-@media (max-width: 1023px) {
-  .dua-slide:not(:first-child):not(:last-child) {
-    justify-content: flex-start;
-  }
-}
+/* Изменено: удалено правило смещения промежуточных слайдов | Зачем: все слайды центрированы одинаково, контент не съезжает на мобильных */
 
 .dua-slide__panel {
   width: min(calc(100% - var(--dua-slide-gap)), var(--dua-panel-max-width));
@@ -366,6 +365,7 @@ body {
   gap: 8px;
 }
 
+/* Изменено: увеличена тап-зона точек до 44x44px через padding | Зачем: соответствие WCAG 2.1 — минимальный размер интерактивных элементов на мобильных */
 .chapter__dot {
   width: 8px;
   height: 8px;
@@ -375,11 +375,44 @@ body {
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background 200ms ease, transform 200ms ease;
+  position: relative;
+}
+
+.chapter__dot::before {
+  /* Изменено: невидимая область касания 44x44px | Зачем: удобство нажатия на мобильных без изменения визуального размера точки */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+}
+
+.chapter__dot:focus-visible {
+  /* Изменено: добавлен фокус-индикатор на точки | Зачем: доступность с клавиатуры — пользователь видит, какая точка сфокусирована */
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .chapter__dot--active {
   background: rgba(255, 255, 255, 0.9);
-  transform: scale(1.25);
+}
+
+/* Изменено: добавлен режим скользящих точек | Зачем: при 40+ дуа точки не помещались на мобильном экране и вызывали горизонтальный overflow */
+.chapter__dots--sliding {
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+.chapter__dots--sliding .chapter__dot::before {
+  display: none;
+}
+
+.chapter__dots--sliding .chapter__dot {
+  flex-shrink: 0;
 }
 
 
@@ -494,6 +527,12 @@ body {
   .dua-slide__panel {
     padding-left: clamp(22px, 2vw, 30px);
     padding-right: clamp(22px, 2vw, 30px);
+  }
+
+  /* Изменено: фон для десктопа | Зачем: горизонтальное изображение лучше заполняет широкий экран */
+  .site-background {
+    background-image: url("/desktop-bg.jpg");
+    background-position: center center;
   }
 }
 

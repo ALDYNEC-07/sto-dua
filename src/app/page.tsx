@@ -21,7 +21,8 @@ export default function Home() {
         </div>
         <div className="hero__bottom">
           <div className="hero__bismillah">
-            <p className="hero__bismillah-ar">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+            {/* Изменено: добавлены lang="ar" и dir="rtl" | Зачем: доступность — скринридеры корректно озвучивают арабский текст */}
+            <p className="hero__bismillah-ar" lang="ar" dir="rtl">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
             <p className="hero__bismillah-ru">
               Во имя Аллаха, Милостивого и Милосердного.
             </p>
@@ -42,7 +43,8 @@ export default function Home() {
       ))}
 
       <footer className="site-status" aria-label="Статус проекта">
-        <p className="site-status__text">Проект в разработке: пока загружены не все дуа.</p>
+        {/* Изменено: обновили статус | Зачем: коллекция теперь полная */}
+        <p className="site-status__text">Коллекция 100 дуа из Корана и Сунны.</p>
       </footer>
     </main>
   );
