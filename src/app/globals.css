@@ -21,6 +21,8 @@ body {
 html {
   scroll-behavior: smooth;
   background-color: #0f0f0f;
+  /* Изменено: перенесли overflow-x: hidden с body на html | Зачем: в Яндекс браузере и ряде Chromium-браузеров overflow-x на body делает body корневым скролл-контейнером, из-за чего position: fixed перестаёт работать при скролле */
+  overflow-x: hidden;
 }
 
 body {
@@ -31,7 +33,6 @@ body {
   background-color: transparent;
   position: relative;
   isolation: isolate;
-  overflow-x: hidden;
 }
 
 .site-background {
