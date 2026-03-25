@@ -43,7 +43,8 @@ export default function Home() {
       ))}
 
       <footer className="site-status" aria-label="Статус проекта">
-        <p className="site-status__text">Проект в разработке: пока загружены не все дуа.</p>
+        {/* Изменено: обновили статус | Зачем: коллекция теперь полная */}
+        <p className="site-status__text">Коллекция 100 дуа из Корана и Сунны.</p>
       </footer>
     </main>
   );
