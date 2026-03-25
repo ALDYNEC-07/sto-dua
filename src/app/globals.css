@@ -259,6 +259,13 @@ body {
   -ms-overflow-style: none;
 }
 
+/* Изменено: добавлен фокус-индикатор на трек карусели | Зачем: пользователь видит, что карусель сфокусирована и готова к управлению стрелками */
+.chapter__track:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
 .chapter__track::-webkit-scrollbar {
   display: none;
 }
@@ -275,11 +282,7 @@ body {
   padding: 0;
 }
 
-@media (max-width: 1023px) {
-  .dua-slide:not(:first-child):not(:last-child) {
-    justify-content: flex-start;
-  }
-}
+/* Изменено: удалено правило смещения промежуточных слайдов | Зачем: все слайды центрированы одинаково, контент не съезжает на мобильных */
 
 .dua-slide__panel {
   width: min(calc(100% - var(--dua-slide-gap)), var(--dua-panel-max-width));
@@ -366,6 +369,7 @@ body {
   gap: 8px;
 }
 
+/* Изменено: увеличена тап-зона точек до 44x44px через padding | Зачем: соответствие WCAG 2.1 — минимальный размер интерактивных элементов на мобильных */
 .chapter__dot {
   width: 8px;
   height: 8px;
@@ -375,6 +379,25 @@ body {
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: background 200ms ease, transform 200ms ease;
+  position: relative;
+}
+
+.chapter__dot::before {
+  /* Изменено: невидимая область касания 44x44px | Зачем: удобство нажатия на мобильных без изменения визуального размера точки */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+}
+
+.chapter__dot:focus-visible {
+  /* Изменено: добавлен фокус-индикатор на точки | Зачем: доступность с клавиатуры — пользователь видит, какая точка сфокусирована */
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .chapter__dot--active {

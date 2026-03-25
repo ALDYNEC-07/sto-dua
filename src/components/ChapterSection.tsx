@@ -150,10 +150,14 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         {title}
       </h2>
 
+      {/* Изменено: добавлены role="region" и aria-roledescription | Зачем: скринридеры объявляют этот блок как карусель */}
       <div
         className="chapter__track"
         ref={trackRef}
         tabIndex={0}
+        role="region"
+        aria-roledescription="карусель"
+        aria-label={`Дуа из главы: ${title}`}
         onKeyDown={handleKeyDown}
         onScroll={handleTrackScroll}
         onTouchStart={handleTouchStart}
@@ -186,15 +190,15 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         })}
       </div>
 
-      <div className="chapter__dots" role="tablist" aria-label="Выбор дуа">
+      {/* Изменено: заменены role="tablist"/"tab" на group | Зачем: точки навигации карусели — не табы, корректная семантика для скринридеров */}
+      <div className="chapter__dots" role="group" aria-label="Навигация по дуа">
         {duas.map((dua, index) => (
           <button
             key={dua.id}
             className={`chapter__dot ${index === activeIndex ? "chapter__dot--active" : ""}`}
             type="button"
-            role="tab"
-            aria-selected={index === activeIndex}
             aria-label={`Дуа ${index + 1} из ${duas.length}`}
+            aria-current={index === activeIndex ? "true" : undefined}
             onClick={() => scrollToIndex(index)}
           />
         ))}

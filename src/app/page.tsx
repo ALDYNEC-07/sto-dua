@@ -21,7 +21,8 @@ export default function Home() {
         </div>
         <div className="hero__bottom">
           <div className="hero__bismillah">
-            <p className="hero__bismillah-ar">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+            {/* Изменено: добавлены lang="ar" и dir="rtl" | Зачем: доступность — скринридеры корректно озвучивают арабский текст */}
+            <p className="hero__bismillah-ar" lang="ar" dir="rtl">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
             <p className="hero__bismillah-ru">
               Во имя Аллаха, Милостивого и Милосердного.
             </p>
