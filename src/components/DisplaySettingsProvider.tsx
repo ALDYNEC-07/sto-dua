@@ -15,7 +15,8 @@ type DisplaySettingsContextValue = {
   setShowTransliteration: Dispatch<SetStateAction<boolean>>;
 };
 
-const STORAGE_KEY = "dua-show-transliteration";
+// Изменено: переименовали константу | Зачем: более описательное имя
+const TRANSLITERATION_STORAGE_KEY = "dua-show-transliteration";
 
 const DisplaySettingsContext = createContext<DisplaySettingsContextValue | undefined>(undefined);
 
@@ -25,7 +26,7 @@ export function DisplaySettingsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const savedPreference = window.localStorage.getItem(STORAGE_KEY);
+      const savedPreference = window.localStorage.getItem(TRANSLITERATION_STORAGE_KEY);
       if (savedPreference !== null) {
         setShowTransliteration(savedPreference === "true");
       }
@@ -39,7 +40,7 @@ export function DisplaySettingsProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    window.localStorage.setItem(STORAGE_KEY, String(showTransliteration));
+    window.localStorage.setItem(TRANSLITERATION_STORAGE_KEY, String(showTransliteration));
   }, [hasLoadedSettings, showTransliteration]);
 
   return (
