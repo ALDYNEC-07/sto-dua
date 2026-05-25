@@ -108,15 +108,7 @@
   background: #fff;
 }
 
-.burgerMenu:not([aria-expanded="true"]):hover span:first-child,
-.burgerMenu:not([aria-expanded="true"]):focus-visible span:first-child {
-  transform: translateX(-2px);
-}
-
-.burgerMenu:not([aria-expanded="true"]):hover span:last-child,
-.burgerMenu:not([aria-expanded="true"]):focus-visible span:last-child {
-  transform: translateX(2px);
-}
+/* Изменено: убрана hover-анимация линий бургера | Зачем: иконка не двигается при наведении, active-состояния остаются */
 
 .burgerMenu[aria-expanded="true"] span:first-child {
   transform: translateY(4px) rotate(45deg);
@@ -138,17 +130,12 @@
     filter 220ms ease;
 }
 
-.settingsButton:hover::before,
-.settingsButton:focus-visible::before,
 .settingsButton[aria-expanded="true"]::before {
   opacity: 1;
   transform: translateY(-50%) scale(1);
 }
 
-.settingsButton:hover .settingsIcon,
-.settingsButton:focus-visible .settingsIcon {
-  transform: rotate(32deg) scale(1.04);
-}
+/* Изменено: убрана hover-анимация иконки настроек | Зачем: шестерёнка не вращается при наведении, active-состояние сохранено */
 
 .settingsButton[aria-expanded="true"] .settingsIcon {
   transform: rotate(84deg) scale(1.06);
