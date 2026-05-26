@@ -135,7 +135,7 @@ const getDuaHash = (chapterId: string, duaId: number) => `${chapterId}-${duaId}`
 const getDuaUrl = (chapterId: string, duaId: number) => `${SITE_URL}#${getDuaHash(chapterId, duaId)}`;
 
 // Изменено: добавлен общий формат текста для копирования и шаринга | Зачем: обе кнопки отправляют одинаково аккуратно собранное дуа
-const formatDuaText = (dua: Dua, duaUrl: string) => {
+const formatDuaText = (dua: Dua) => {
   return [
     dua.arabic,
     "",
@@ -144,10 +144,10 @@ const formatDuaText = (dua: Dua, duaUrl: string) => {
     "",
     "Перевод:",
     dua.translation,
-    "",
-    duaUrl,
   ].join("\n");
 };
+
+const formatDuaCopyText = (dua: Dua, duaUrl: string) => `${formatDuaText(dua)}\n\n${duaUrl}`;
 
 // Изменено: добавлен fallback копирования | Зачем: кнопка работает и в браузерах без navigator.clipboard
 const copyTextToClipboard = async (text: string) => {
@@ -223,13 +223,13 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
 
   const handleCopyDua = async (dua: Dua, duaKey: string) => {
     const duaUrl = getDuaUrl(id, dua.id);
-    await copyTextToClipboard(formatDuaText(dua, duaUrl));
+    await copyTextToClipboard(formatDuaCopyText(dua, duaUrl));
     markDuaCopied(duaKey);
   };
 
   const handleShareDua = async (dua: Dua, duaKey: string) => {
     const duaUrl = getDuaUrl(id, dua.id);
-    const text = formatDuaText(dua, duaUrl);
+    const text = formatDuaText(dua);
     const shareData = {
       title: "Дуа из Корана и Сунны",
       text,
