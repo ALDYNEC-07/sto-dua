@@ -229,11 +229,10 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
 
   const handleShareDua = async (dua: Dua, duaKey: string) => {
     const duaUrl = getDuaUrl(id, dua.id);
-    const text = formatDuaText(dua);
+    const text = formatDuaCopyText(dua, duaUrl);
     const shareData = {
       title: "Дуа из Корана и Сунны",
       text,
-      url: duaUrl,
     };
 
     if (navigator.share) {
