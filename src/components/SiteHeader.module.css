@@ -157,10 +157,7 @@
   transform: translateY(1px);
 }
 
-.settingsButton:active::before {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.16);
-}
+/* Изменено: убран фон при нажатии на настройки | Зачем: иконки в шапке не получают отдельную подложку во время tap */
 
 .settingsButton:active .settingsIcon {
   transform: rotate(138deg) scale(0.9);

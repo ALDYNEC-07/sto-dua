@@ -19,7 +19,7 @@ const notoSansArabic = Noto_Sans_Arabic({
   variable: "--font-noto-sans-arabic",
 });
 
-const SITE_URL = "https://sto-dua.vercel.app";
+const SITE_URL = "https://dua-is-here.vercel.app/";
 const SITE_TITLE = "100 ДУА — из Корана и Сунны";
 const SITE_DESCRIPTION =
   "Сборник из 100 дуа (мольб) из Корана и Сунны с арабским текстом, транскрипцией и переводом на русский язык.";

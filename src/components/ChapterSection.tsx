@@ -129,7 +129,7 @@ function ShareIcon() {
 // Что изменили: Добавили пороги для определения уверенного свайпа и фиксации оси жеста | Зачем: один свайп = один стабильный перелист без ложных срабатываний
 const SWIPE_THRESHOLD_PX = 44;
 const AXIS_LOCK_PX = 8;
-const SITE_URL = "https://sto-dua.vercel.app";
+const SITE_URL = "https://dua-is-here.vercel.app/";
 
 // Изменено: добавлен общий формат текста для копирования и шаринга | Зачем: обе кнопки отправляют одинаково аккуратно собранное дуа
 const formatDuaText = (dua: Dua) => {

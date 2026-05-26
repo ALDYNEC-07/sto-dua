@@ -300,10 +300,11 @@ body {
 }
 
 .dua-slide__topline {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  min-height: 36px;
 }
 
 .dua-slide__content {
@@ -368,10 +369,14 @@ body {
 
 /* Изменено: действия стали компактными иконками в верхней строке | Зачем: управление не занимает место под текстом дуа */
 .dua-slide__actions {
+  position: absolute;
+  top: 50%;
+  right: 0;
   display: inline-flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
+  transform: translateY(-50%);
 }
 
 .dua-slide__action {
