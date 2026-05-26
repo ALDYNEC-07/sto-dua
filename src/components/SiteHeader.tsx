@@ -58,9 +58,17 @@ export default function SiteHeader() {
       <header className={styles.siteHeader}>
         <div className={styles.siteHeaderFrame}>
           <div className={styles.siteHeaderInner}>
-            {/* Изменено: aria-label переведён на русский | Зачем: доступность — интерфейс на русском, aria-label тоже */}
+            {/* Изменено: текстовый логотип заменён на изображение | Зачем: в шапке используется добавленный брендовый логотип */}
             <div className={styles.siteLogo} aria-label="Логотип сайта">
-              DUA
+              <Image
+                className={styles.siteLogoImage}
+                src="/логотип.png"
+                alt=""
+                width={38}
+                height={38}
+                priority
+                aria-hidden="true"
+              />
             </div>
             <div className={styles.siteActions}>
               <button
@@ -71,14 +79,8 @@ export default function SiteHeader() {
                 aria-controls="site-settings"
                 onClick={toggleSettings}
               >
-                <Image
-                  className={styles.settingsIcon}
-                  src="/settings.svg"
-                  alt=""
-                  width={22}
-                  height={22}
-                  aria-hidden="true"
-                />
+                {/* Изменено: иконка настроек стала CSS-mask | Зачем: цвет иконки совпадает с зелёным цветом логотипа */}
+                <span className={styles.settingsIcon} aria-hidden="true" />
               </button>
               <button
                 className={`${styles.iconButton} ${styles.burgerMenu}`}
