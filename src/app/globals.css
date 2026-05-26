@@ -418,22 +418,6 @@ body {
 }
 
 
-.site-status {
-  position: relative;
-  z-index: 2;
-  padding: 8px var(--page-gutter) calc(env(safe-area-inset-bottom, 0px) + 24px);
-}
-
-.site-status__text {
-  margin: 0 auto;
-  max-width: 44ch;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(0.88rem, 1.8vw, 0.98rem);
-  line-height: 1.5;
-}
-
-
 @keyframes heroArrowFloat {
   0% {
     transform: translateY(0);
