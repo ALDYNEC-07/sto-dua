@@ -82,20 +82,7 @@
   transition: transform 180ms ease;
 }
 
-.settingsButton::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -2px;
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  opacity: 0;
-  transform: translateY(-50%) scale(0.72);
-  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-  z-index: -1;
-}
+/* Изменено: убрана декоративная подложка кнопки настроек | Зачем: при нажатии и открытии не появляется фон вокруг иконки */
 
 .burgerMenu {
   flex-direction: column;
@@ -141,11 +128,6 @@
   transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.settingsButton[aria-expanded="true"]::before {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-}
-
 /* Изменено: убрана hover-анимация иконки настроек | Зачем: шестерёнка не вращается при наведении, active-состояние сохранено */
 
 .settingsButton[aria-expanded="true"] .settingsIcon {
@@ -158,6 +140,14 @@
 }
 
 /* Изменено: убран фон при нажатии на настройки | Зачем: иконки в шапке не получают отдельную подложку во время tap */
+
+.settingsButton:active,
+.settingsButton:focus,
+.burgerMenu:active,
+.burgerMenu:focus {
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .settingsButton:active .settingsIcon {
   transform: rotate(138deg) scale(0.9);
