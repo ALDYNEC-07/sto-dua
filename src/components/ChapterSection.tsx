@@ -131,8 +131,11 @@ const SWIPE_THRESHOLD_PX = 44;
 const AXIS_LOCK_PX = 8;
 const SITE_URL = "https://dua-is-here.vercel.app/";
 
+const getDuaHash = (chapterId: string, duaId: number) => `${chapterId}-${duaId}`;
+const getDuaUrl = (chapterId: string, duaId: number) => `${SITE_URL}#${getDuaHash(chapterId, duaId)}`;
+
 // Изменено: добавлен общий формат текста для копирования и шаринга | Зачем: обе кнопки отправляют одинаково аккуратно собранное дуа
-const formatDuaText = (dua: Dua) => {
+const formatDuaText = (dua: Dua, duaUrl: string) => {
   return [
     dua.arabic,
     "",
@@ -142,7 +145,7 @@ const formatDuaText = (dua: Dua) => {
     "Перевод:",
     dua.translation,
     "",
-    SITE_URL,
+    duaUrl,
   ].join("\n");
 };
 
@@ -219,16 +222,18 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
   };
 
   const handleCopyDua = async (dua: Dua, duaKey: string) => {
-    await copyTextToClipboard(formatDuaText(dua));
+    const duaUrl = getDuaUrl(id, dua.id);
+    await copyTextToClipboard(formatDuaText(dua, duaUrl));
     markDuaCopied(duaKey);
   };
 
   const handleShareDua = async (dua: Dua, duaKey: string) => {
-    const text = formatDuaText(dua);
+    const duaUrl = getDuaUrl(id, dua.id);
+    const text = formatDuaText(dua, duaUrl);
     const shareData = {
       title: "Дуа из Корана и Сунны",
       text,
-      url: `${window.location.origin}${window.location.pathname}#${id}`,
+      url: duaUrl,
     };
 
     if (navigator.share) {
@@ -245,6 +250,34 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
     await copyTextToClipboard(text);
     markDuaCopied(duaKey);
   };
+
+  useEffect(() => {
+    const scrollToHashDua = () => {
+      const hash = decodeURIComponent(window.location.hash.replace("#", ""));
+      const targetIndex = duas.findIndex((dua) => getDuaHash(id, dua.id) === hash);
+      const track = trackRef.current;
+
+      if (targetIndex < 0 || !track) {
+        return;
+      }
+
+      const boundedIndex = Math.min(Math.max(targetIndex, 0), Math.max(duas.length - 1, 0));
+
+      // Изменено: добавлен переход по ссылке на конкретное дуа | Зачем: получатель ссылки сразу попадает на нужную карточку
+      window.requestAnimationFrame(() => {
+        track.scrollTo({ left: boundedIndex * track.clientWidth, behavior: "auto" });
+        setActiveIndex(boundedIndex);
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    };
+
+    scrollToHashDua();
+    window.addEventListener("hashchange", scrollToHashDua);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToHashDua);
+    };
+  }, [duas, id]);
 
   const setActiveIndexFromScroll = () => {
     const track = trackRef.current;
@@ -374,7 +407,7 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
           const isCopied = copiedDuaKey === duaKey;
 
           return (
-            <article className="dua-slide" key={dua.id}>
+            <article id={duaKey} className="dua-slide" key={dua.id}>
               <div className="dua-slide__panel">
                 <div className="dua-slide__topline">
                   <p className="dua-slide__index">
