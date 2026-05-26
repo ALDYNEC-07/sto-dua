@@ -187,6 +187,14 @@
   pointer-events: auto;
 }
 
+/* Изменено: открытое бургер-меню получает высоту экрана | Зачем: фон меню закрывает экран по высоте */
+.siteMenuOpen {
+  height: 100vh;
+  height: 100svh;
+  align-content: start;
+  grid-auto-rows: max-content;
+}
+
 .settingsRow {
   display: flex;
   align-items: center;
@@ -279,5 +287,11 @@
 
   .siteMenuLink {
     font-size: 0.96rem;
+  }
+
+  /* Изменено: на десктопе меню снова занимает высоту ссылок | Зачем: полноэкранный фон нужен только мобильной версии */
+  .siteMenuOpen {
+    height: auto;
+    min-height: 0;
   }
 }
