@@ -16,7 +16,8 @@ export default function Home() {
       <section className="hero">
         <div className="hero__overlay" />
         <div className="hero__content">
-          <h1 className="hero__title">100 ДУА</h1>
+          {/* Изменено: убрано число из hero-заголовка | Зачем: не привязывать обложку к количеству дуа */}
+          <h1 className="hero__title">ДУА</h1>
           <p className="hero__subtitle">ИЗ КОРАНА И СУННЫ</p>
         </div>
         <div className="hero__bottom">
@@ -41,11 +42,6 @@ export default function Home() {
           duas={chapter.duas}
         />
       ))}
-
-      <footer className="site-status" aria-label="Статус проекта">
-        {/* Изменено: обновили статус | Зачем: коллекция теперь полная */}
-        <p className="site-status__text">Коллекция 100 дуа из Корана и Сунны.</p>
-      </footer>
     </main>
   );
 }

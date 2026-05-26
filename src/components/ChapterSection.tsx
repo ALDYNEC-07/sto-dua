@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDisplaySettings } from "./DisplaySettingsProvider";
-import type { Chapter } from "../types";
+import type { Chapter, Dua } from "../types";
 
 type ChapterSectionProps = Chapter;
 
@@ -98,9 +98,72 @@ function SlidingDots({
   );
 }
 
+function CopyIcon({ isCopied }: { isCopied: boolean }) {
+  if (isCopied) {
+    return (
+      <svg className="dua-slide__action-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="dua-slide__action-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="8" y="8" width="10" height="10" rx="2" />
+      <path d="M6 16H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  );
+}
+
+function ShareIcon() {
+  return (
+    <svg className="dua-slide__action-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.6 10.7 6.8-4.4M8.6 13.3l6.8 4.4" />
+    </svg>
+  );
+}
+
 // Что изменили: Добавили пороги для определения уверенного свайпа и фиксации оси жеста | Зачем: один свайп = один стабильный перелист без ложных срабатываний
 const SWIPE_THRESHOLD_PX = 44;
 const AXIS_LOCK_PX = 8;
+const SITE_URL = "https://sto-dua.vercel.app";
+
+// Изменено: добавлен общий формат текста для копирования и шаринга | Зачем: обе кнопки отправляют одинаково аккуратно собранное дуа
+const formatDuaText = (dua: Dua) => {
+  return [
+    dua.arabic,
+    "",
+    "Транскрипция:",
+    dua.transliteration,
+    "",
+    "Перевод:",
+    dua.translation,
+    "",
+    SITE_URL,
+  ].join("\n");
+};
+
+// Изменено: добавлен fallback копирования | Зачем: кнопка работает и в браузерах без navigator.clipboard
+const copyTextToClipboard = async (text: string) => {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.top = "0";
+  textarea.style.left = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+};
 
 export default function ChapterSection({ id, title, duas }: ChapterSectionProps) {
   const { showTransliteration } = useDisplaySettings();
@@ -110,7 +173,9 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
   const touchStartYRef = useRef(0);
   const swipeStartIndexRef = useRef(0);
   const swipeAxisRef = useRef<"x" | "y" | null>(null);
+  const copiedTimeoutRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [copiedDuaKey, setCopiedDuaKey] = useState<string | null>(null);
 
   // Что изменили: Вынесли повторяющееся ограничение индекса в один helper | Зачем: убрать дубли и держать границы слайдов в одном месте
   const clampIndex = (index: number) => {
@@ -130,9 +195,56 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
     }
   };
 
+  const clearCopiedTimeout = () => {
+    if (copiedTimeoutRef.current !== null) {
+      window.clearTimeout(copiedTimeoutRef.current);
+      copiedTimeoutRef.current = null;
+    }
+  };
+
   useEffect(() => {
-    return () => clearScrollEndTimeout();
+    return () => {
+      clearScrollEndTimeout();
+      clearCopiedTimeout();
+    };
   }, []);
+
+  const markDuaCopied = (duaKey: string) => {
+    setCopiedDuaKey(duaKey);
+    clearCopiedTimeout();
+    copiedTimeoutRef.current = window.setTimeout(() => {
+      setCopiedDuaKey(null);
+      copiedTimeoutRef.current = null;
+    }, 1600);
+  };
+
+  const handleCopyDua = async (dua: Dua, duaKey: string) => {
+    await copyTextToClipboard(formatDuaText(dua));
+    markDuaCopied(duaKey);
+  };
+
+  const handleShareDua = async (dua: Dua, duaKey: string) => {
+    const text = formatDuaText(dua);
+    const shareData = {
+      title: "Дуа из Корана и Сунны",
+      text,
+      url: `${window.location.origin}${window.location.pathname}#${id}`,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
+    await copyTextToClipboard(text);
+    markDuaCopied(duaKey);
+  };
 
   const setActiveIndexFromScroll = () => {
     const track = trackRef.current;
@@ -258,12 +370,38 @@ export default function ChapterSection({ id, title, duas }: ChapterSectionProps)
         onTouchCancel={handleTouchCancel}
       >
         {duas.map((dua, index) => {
+          const duaKey = `${id}-${dua.id}`;
+          const isCopied = copiedDuaKey === duaKey;
+
           return (
             <article className="dua-slide" key={dua.id}>
               <div className="dua-slide__panel">
-                <p className="dua-slide__index">
-                  {index + 1} · {duas.length}
-                </p>
+                <div className="dua-slide__topline">
+                  <p className="dua-slide__index">
+                    {index + 1} · {duas.length}
+                  </p>
+                  {/* Изменено: действия перенесены в верх карточки и заменены на иконки | Зачем: кнопки не конкурируют с текстом дуа */}
+                  <div className="dua-slide__actions" aria-live="polite">
+                    <button
+                      className="dua-slide__action"
+                      type="button"
+                      aria-label={isCopied ? "Дуа скопировано" : "Скопировать дуа"}
+                      title={isCopied ? "Скопировано" : "Копировать"}
+                      onClick={() => handleCopyDua(dua, duaKey)}
+                    >
+                      <CopyIcon isCopied={isCopied} />
+                    </button>
+                    <button
+                      className="dua-slide__action"
+                      type="button"
+                      aria-label="Поделиться дуа"
+                      title="Поделиться"
+                      onClick={() => handleShareDua(dua, duaKey)}
+                    >
+                      <ShareIcon />
+                    </button>
+                  </div>
+                </div>
                 {/* Что изменили: Вынесли текст дуа в отдельную прокручиваемую область | Зачем: фиксированная карточка без скачков высоты и удобное чтение длинных дуа */}
                 <div className="dua-slide__content">
                   <p className="dua-slide__arabic" lang="ar" dir="rtl">

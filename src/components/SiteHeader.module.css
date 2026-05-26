@@ -9,6 +9,10 @@
 }
 
 .siteHeader {
+  --header-icon-color: #0e5a46;
+  --header-icon-highlight: #46a37e;
+  --header-icon-gradient: linear-gradient(135deg, #46a37e 0%, #409f75 14%, #0e5a46 54%, #033528 100%);
+
   position: fixed;
   top: 0;
   left: 0;
@@ -35,11 +39,19 @@
 }
 
 .siteLogo {
-  margin: 0;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+}
+
+/* Изменено: размеры логотипа подогнаны к иконкам | Зачем: видимая луна из PNG совпадает по масштабу с кнопками шапки */
+.siteLogoImage {
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .siteActions {
@@ -58,7 +70,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--header-icon-color);
   cursor: pointer;
 }
 
@@ -92,11 +104,11 @@
 
 .burgerMenu span {
   display: block;
-  width: 22px;
-  height: 2px;
+  width: 26px;
+  height: 2.5px;
   margin-left: auto;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-icon-gradient);
   transition:
     transform 180ms ease,
     opacity 180ms ease,
@@ -105,18 +117,10 @@
 
 .burgerMenu:not([aria-expanded="true"]):hover span,
 .burgerMenu:not([aria-expanded="true"]):focus-visible span {
-  background: #fff;
+  background: var(--header-icon-gradient);
 }
 
-.burgerMenu:not([aria-expanded="true"]):hover span:first-child,
-.burgerMenu:not([aria-expanded="true"]):focus-visible span:first-child {
-  transform: translateX(-2px);
-}
-
-.burgerMenu:not([aria-expanded="true"]):hover span:last-child,
-.burgerMenu:not([aria-expanded="true"]):focus-visible span:last-child {
-  transform: translateX(2px);
-}
+/* Изменено: убрана hover-анимация линий бургера | Зачем: иконка не двигается при наведении, active-состояния остаются */
 
 .burgerMenu[aria-expanded="true"] span:first-child {
   transform: translateY(4px) rotate(45deg);
@@ -127,32 +131,26 @@
 }
 
 .settingsIcon {
-  width: 22px;
-  height: 22px;
+  width: 27px;
+  height: 27px;
   display: block;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+  background: var(--header-icon-gradient);
+  mask: url("/settings.svg") center / contain no-repeat;
+  -webkit-mask: url("/settings.svg") center / contain no-repeat;
   transform-origin: center;
-  transition:
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 220ms ease;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.settingsButton:hover::before,
-.settingsButton:focus-visible::before,
 .settingsButton[aria-expanded="true"]::before {
   opacity: 1;
   transform: translateY(-50%) scale(1);
 }
 
-.settingsButton:hover .settingsIcon,
-.settingsButton:focus-visible .settingsIcon {
-  transform: rotate(32deg) scale(1.04);
-}
+/* Изменено: убрана hover-анимация иконки настроек | Зачем: шестерёнка не вращается при наведении, active-состояние сохранено */
 
 .settingsButton[aria-expanded="true"] .settingsIcon {
   transform: rotate(84deg) scale(1.06);
-  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.18));
+  filter: drop-shadow(0 0 10px rgba(70, 163, 126, 0.3));
 }
 
 .settingsButton:active {
@@ -198,6 +196,14 @@
   transform: translateY(0);
   visibility: visible;
   pointer-events: auto;
+}
+
+/* Изменено: открытое бургер-меню получает высоту экрана | Зачем: фон меню закрывает экран по высоте */
+.siteMenuOpen {
+  height: 100vh;
+  height: 100svh;
+  align-content: start;
+  grid-auto-rows: max-content;
 }
 
 .settingsRow {
@@ -287,10 +293,22 @@
   }
 
   .siteLogo {
-    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .siteLogoImage {
+    width: 40px;
+    height: 40px;
   }
 
   .siteMenuLink {
     font-size: 0.96rem;
+  }
+
+  /* Изменено: на десктопе меню снова занимает высоту ссылок | Зачем: полноэкранный фон нужен только мобильной версии */
+  .siteMenuOpen {
+    height: auto;
+    min-height: 0;
   }
 }
