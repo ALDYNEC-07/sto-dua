@@ -299,6 +299,13 @@ body {
   overflow: hidden;
 }
 
+.dua-slide__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .dua-slide__content {
   /* Что изменили: Добавили внутренний вертикальный скролл текста | Зачем: длинные дуа читаются полностью внутри фиксированной карточки */
   min-height: 0;
@@ -357,6 +364,53 @@ body {
   color: rgba(255, 255, 255, 0.96);
   font-size: clamp(0.98rem, 2.15vw, 1.12rem);
   line-height: 1.62;
+}
+
+/* Изменено: действия стали компактными иконками в верхней строке | Зачем: управление не занимает место под текстом дуа */
+.dua-slide__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.dua-slide__action {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.dua-slide__action-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dua-slide__action:hover,
+.dua-slide__action:focus-visible {
+  color: rgba(255, 255, 255, 0.66);
+  background: transparent;
+  outline: none;
+}
+
+.dua-slide__action:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.72);
+}
+
+.dua-slide__action:active {
+  transform: translateY(1px);
 }
 
 .chapter__dots {
