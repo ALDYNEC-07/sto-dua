@@ -38,11 +38,13 @@ body {
 .site-background {
   /* Что изменили: Вынесли фон в отдельный fixed-элемент | Зачем: на мобильных он не дергается при изменении высоты visual viewport */
   /* Изменено: убраны transform/will-change/contain | Зачем: в Яндекс Браузере (старое Chromium-ядро) эти GPU-хинты на соседнем fixed-элементе ломали position: fixed у шапки при скролле */
+  /* Изменено: фон использует стабильную высоту large viewport | Зачем: картинка не пересчитывается при появлении и скрытии панели мобильного браузера */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  height: 100lvh;
   background-image: url("/hero-dua.jpg");
   background-repeat: no-repeat;
   background-position: center top;
